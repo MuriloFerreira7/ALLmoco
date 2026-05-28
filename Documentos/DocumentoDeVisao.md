@@ -13,7 +13,7 @@ Risco sanitário relacionado à validade: o controle de produtos perecíveis em 
 Dificuldade de planejamento: a ausência de projeções de médio prazo dificulta o planejamento do setor de compras, reduzindo a capacidade de negociação com fornecedores e comprometendo a garantia do abastecimento necessário. 
 
 # Objetivo 
-O objetivo do nosso sistema é resolver todos os problemas presentes no dia a dia com tecnologias inovadoras que não tragam maiores dificuldades. O sistema busca resolver um problema complexo de forma extremamente simples e intuitiva para quem o usa.   ]
+O objetivo do nosso sistema é resolver todos os problemas presentes no dia a dia com tecnologias inovadoras que não tragam maiores dificuldades. O sistema busca resolver um problema complexo de forma extremamente simples e intuitiva para quem o usa.   
 
 # Proposta de aplicativo
 Como solução para os problemas identificados, propõe-se o desenvolvimento de uma aplicação voltada ao gerenciamento do Restaurante Estudantil do IFPR Campus Cascavel, integrando planejamento de cardápio, controle de estoque, monitoramento de validade e emissão de relatórios. O objetivo do sistema é reduzir processos manuais, minimizar desperdícios e auxiliar a tomada de decisão, sem tornar a rotina dos usuários mais complexa ou burocrática.
