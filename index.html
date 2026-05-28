@@ -29,265 +29,461 @@
       --r: 12px;
       --rsm: 8px;
       --shadow: 0 2px 12px rgba(123,28,53,.08);
-      --shadow-md: 0 4px 20px rgba(123,28,53,.12);
+      --shadow-md: 0 4px 20px rgba(123,28,53,.14);
+      --sb-width: 220px;
+      --topbar-h: 56px;
     }
-    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-    html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:14px;line-height:1.5;overflow-x:hidden;}
 
-    /* ── LAYOUT ── */
-    .app{display:flex;height:100dvh;overflow:hidden;}
-    .sidebar{width:220px;min-width:220px;background:var(--wine);display:flex;flex-direction:column;overflow-y:auto;z-index:100;transition:transform .25s ease;}
-    .main{flex:1;overflow-y:auto;background:var(--cream);min-width:0;}
-
-    /* ── SIDEBAR ── */
-    .sb-logo{padding:20px 16px 14px;border-bottom:1px solid rgba(255,255,255,.12);text-align:center;}
-    .sb-logo-text{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;}
-    .sb-logo-text span{color:var(--gold-light);}
-    .sb-sub{color:rgba(255,255,255,.4);font-size:10px;margin-top:4px;letter-spacing:.8px;text-transform:uppercase;}
-    .nav{padding:10px 0;flex:1;}
-    .nav-section{padding:14px 16px 4px;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;}
-    .nav-item{display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer;color:rgba(255,255,255,.72);font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all .15s;user-select:none;}
-    .nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
-    .nav-item.active{background:rgba(255,255,255,.13);color:#fff;border-left-color:var(--gold-light);}
-    .nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
-    .nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;}
-    .sb-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.1);}
-    .sb-footer span{color:rgba(255,255,255,.35);font-size:11px;}
-
-    /* ── MOBILE TOPBAR ── */
-    .topbar{display:none;height:56px;background:var(--wine);align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:50;flex-shrink:0;}
-    .topbar-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:#fff;}
-    .topbar-logo span{color:var(--gold-light);}
-    .topbar-btn{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:38px;height:38px;border-radius:var(--rsm);cursor:pointer;display:flex;align-items:center;justify-content:center;}
-    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99;opacity:0;transition:opacity .2s;}
-    .overlay.open{opacity:1;}
-
-    /* ── PAGE HEADER ── */
-    .ph{background:var(--white);padding:16px 24px;border-bottom:1px solid var(--cream3);position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-    .ph-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--wine);font-weight:700;line-height:1.2;}
-    .ph-sub{font-size:12px;color:var(--text3);margin-top:2px;}
-    .ph-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;}
-
-    /* ── BUTTONS ── */
-    .btn{padding:8px 14px;border-radius:var(--rsm);font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
-    .btn-primary{background:var(--wine);color:#fff;}
-    .btn-primary:hover{background:var(--wine2);}
-    .btn-outline{background:transparent;color:var(--wine);border:1.5px solid var(--wine);}
-    .btn-outline:hover{background:var(--wine);color:#fff;}
-    .btn-ghost{background:transparent;color:var(--text3);border:1.5px solid var(--cream3);}
-    .btn-ghost:hover{border-color:var(--wine);color:var(--wine);}
-    .btn-gold{background:var(--gold);color:#fff;}
-    .btn-sm{padding:6px 12px;font-size:12px;}
-    .btn-xs{padding:4px 9px;font-size:11px;}
-
-    /* ── CONTENT ── */
-    .pc{padding:20px 24px;}
-    .screen{display:none;}
-    .screen.active{display:block;}
-
-    /* ── CARDS ── */
-    .card{background:var(--white);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);}
-    .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-    .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-
-    /* ── STAT CARDS ── */
-    .stat{background:var(--white);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow);border-left:4px solid var(--wine);}
-    .stat.ok{border-left-color:var(--green);}
-    .stat.warn{border-left-color:var(--amber);}
-    .stat.danger{border-left-color:var(--red);}
-    .stat.info{border-left-color:var(--blue);}
-    .stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;font-weight:600;}
-    .stat-val{font-size:26px;font-weight:700;color:var(--text);margin:4px 0 2px;line-height:1;}
-    .stat-desc{font-size:12px;color:var(--text3);}
-
-    /* ── BADGES ── */
-    .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;}
-    .b-red{background:#FEE2E2;color:#B91C1C;}
-    .b-amber{background:#FEF3C7;color:#92400E;}
-    .b-green{background:#DCFCE7;color:#14532D;}
-    .b-blue{background:#DBEAFE;color:#1E40AF;}
-    .b-gray{background:var(--cream2);color:var(--text2);}
-
-    /* ── INFO BOX ── */
-    .ib{border-radius:var(--rsm);padding:12px 14px;margin-bottom:12px;font-size:13px;}
-    .ib.ok{background:#F0FDF4;border-left:4px solid var(--green);color:#166534;}
-    .ib.warn{background:#FFFBEB;border-left:4px solid var(--amber);color:#92400E;}
-    .ib.danger{background:#FEF2F2;border-left:4px solid var(--red);color:#991B1B;}
-    .ib.info{background:#EFF6FF;border-left:4px solid var(--blue);color:#1e3a8a;}
-    .ib strong{display:block;margin-bottom:2px;}
-
-    /* ── TABLE ── */
-    .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-    table{width:100%;border-collapse:collapse;font-size:13px;}
-    th{text-align:left;padding:9px 12px;background:var(--cream2);color:var(--text2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;}
-    th:first-child{border-radius:var(--rsm) 0 0 var(--rsm);}
-    th:last-child{border-radius:0 var(--rsm) var(--rsm) 0;}
-    td{padding:10px 12px;border-bottom:1px solid var(--cream2);color:var(--text);vertical-align:middle;}
-    tr:last-child td{border-bottom:none;}
-    tr:hover td{background:rgba(253,248,243,.6);}
-
-    /* ── SECTION TITLE ── */
-    .st{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-    .st::after{content:'';flex:1;height:1px;background:var(--cream3);}
-    .divider{height:1px;background:var(--cream3);margin:14px 0;}
-
-    /* ── TABS ── */
-    .tabs{display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--cream3);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-    .tabs::-webkit-scrollbar{display:none;}
-    .tab{padding:9px 16px;font-size:13px;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap;flex-shrink:0;}
-    .tab.active{color:var(--wine);border-bottom-color:var(--wine);}
-    .tab:hover:not(.active){color:var(--text2);}
-
-    /* ── ALERT LIST ── */
-    .alert-list{display:flex;flex-direction:column;gap:8px;}
-    .alert-item{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:var(--rsm);background:var(--cream);border:1px solid var(--cream3);}
-    .adot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;}
-    .adot.red{background:var(--red);}
-    .adot.amber{background:var(--amber);}
-    .adot.green{background:var(--green);}
-    .alert-text{font-size:13px;color:var(--text);}
-    .alert-meta{font-size:11px;color:var(--text3);margin-top:2px;}
-
-    /* ── DAY CARDS ── */
-    .days-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-    .day-card{background:var(--white);border-radius:var(--rsm);padding:12px;box-shadow:var(--shadow);border-top:3px solid var(--cream3);}
-    .day-card.today{border-top-color:var(--wine);}
-    .day-card.holiday{border-top-color:#6366f1;background:#fafafe;}
-    .day-name{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
-    .day-name.today-lbl{color:var(--wine);}
-    .day-name.holiday-lbl{color:#4f46e5;}
-    .meal-block{margin-bottom:8px;}
-    .meal-type{font-size:10px;font-weight:600;color:#a07830;text-transform:uppercase;letter-spacing:.3px;margin-bottom:2px;}
-    .meal-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3;}
-    .meal-side{font-size:11px;color:var(--text3);margin-top:1px;}
-    .no-svc{font-size:11px;color:var(--text4);text-align:center;padding:14px 0;}
-
-    /* ── DEMAND BANNER ── */
-    .demand-banner{background:linear-gradient(135deg,var(--wine),var(--wine2));border-radius:var(--r);padding:16px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-    .demand-icon{font-size:26px;flex-shrink:0;}
-    .demand-text{color:#fff;flex:1;min-width:0;}
-    .demand-text strong{display:block;font-size:14px;margin-bottom:2px;}
-    .demand-text span{font-size:12px;opacity:.82;}
-
-    /* ── SUGESTÕES ── */
-    .sug-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;border-left:5px solid var(--gold);}
-    .sug-card.urgent{border-left-color:var(--red);}
-    .sug-card.warn{border-left-color:var(--amber);}
-    .sug-priority{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;}
-    .sug-dish{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
-    .sug-reason{font-size:12px;color:var(--text3);line-height:1.4;}
-    .sug-actions{margin-top:10px;display:flex;gap:7px;flex-wrap:wrap;}
-
-    /* ── FICHA TÉCNICA ── */
-    .ficha-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;}
-    .ficha-header{background:var(--wine);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
-    .ficha-title{color:#fff;font-weight:700;font-size:14px;}
-    .ficha-meta{color:rgba(255,255,255,.6);font-size:11px;}
-    .ficha-body{padding:14px 16px;}
-    .ing-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cream2);}
-    .ing-row:last-child{border-bottom:none;}
-    .ing-name{font-size:13px;color:var(--text);}
-    .ing-qty{font-size:13px;font-weight:600;color:var(--wine);}
-
-    /* ── IMPORT ZONE ── */
-    .import-zone{border:2px dashed var(--cream4);border-radius:var(--r);padding:30px;text-align:center;cursor:pointer;transition:all .2s;background:var(--cream);}
-    .import-zone:hover,.import-zone.drag{border-color:var(--wine);background:#fdf0f4;}
-
-    /* ── CALENDAR ── */
-    .cal-header-row{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px;}
-    .cal-header-row span{text-align:center;font-size:11px;font-weight:700;color:var(--text3);padding:4px;}
-    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
-    .cal-day{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .12s;position:relative;}
-    .cal-day.working{background:var(--white);color:var(--text);box-shadow:var(--shadow);}
-    .cal-day.working:hover{border-color:var(--wine);}
-    .cal-day.holiday{background:#ede9fe;color:#4f46e5;}
-    .cal-day.vacation{background:#fce7f3;color:#9d174d;}
-    .cal-day.weekend{background:var(--cream2);color:var(--text4);cursor:default;}
-
-    /* ── MODAL ── */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s;}
-    .modal-overlay.open{opacity:1;pointer-events:all;}
-    .modal{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow-md);width:100%;max-width:480px;max-height:90dvh;overflow-y:auto;transform:translateY(12px);transition:transform .2s;}
-    .modal-overlay.open .modal{transform:translateY(0);}
-    .modal-header{padding:16px 20px;border-bottom:1px solid var(--cream3);display:flex;align-items:center;justify-content:space-between;}
-    .modal-title{font-size:15px;font-weight:700;color:var(--wine);}
-    .modal-close{background:var(--cream2);border:none;font-size:15px;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);}
-    .modal-body{padding:18px 20px;}
-    .modal-footer{padding:12px 20px;border-top:1px solid var(--cream3);display:flex;gap:8px;justify-content:flex-end;}
-
-    /* ── FORM ── */
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
-    .form-group{display:flex;flex-direction:column;gap:4px;}
-    .form-group label{font-size:12px;font-weight:600;color:var(--text2);}
-    .form-group input,.form-group select,.form-group textarea{padding:9px 11px;border:1.5px solid var(--cream3);border-radius:var(--rsm);font-family:inherit;font-size:13px;color:var(--text);background:var(--white);outline:none;width:100%;}
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--wine);}
-    .form-full{grid-column:1/-1;}
-    .chip-group{display:flex;gap:6px;flex-wrap:wrap;}
-    .chip{padding:5px 11px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--cream3);background:var(--white);color:var(--text3);transition:all .12s;user-select:none;}
-    .chip.selected{background:var(--wine);color:#fff;border-color:var(--wine);}
-
-    /* ── PROGRESS ── */
-    .pbar{height:6px;background:var(--cream2);border-radius:3px;overflow:hidden;margin-top:5px;}
-    .pfill{height:100%;border-radius:3px;transition:width .4s;}
-    .pfill.green{background:var(--green);}
-    .pfill.amber{background:var(--amber);}
-    .pfill.red{background:var(--red);}
-
-    /* ── TOAST ── */
-    .toast{position:fixed;bottom:20px;right:20px;background:#1c1c1c;color:#fff;padding:11px 16px;border-radius:var(--rsm);font-size:13px;font-weight:500;z-index:999;transform:translateY(60px);opacity:0;transition:all .3s;max-width:300px;box-shadow:0 4px 20px rgba(0,0,0,.3);}
-    .toast.show{transform:translateY(0);opacity:1;}
-    .toast.success{background:#14532d;}
-    .toast.error{background:#991b1b;}
-
-    /* ── MISC ── */
-    .mt8{margin-top:8px;}
-    .mt12{margin-top:12px;}
-    .mt16{margin-top:16px;}
-    .lote{font-size:11px;background:var(--cream2);padding:2px 5px;border-radius:4px;font-family:monospace;}
-    .empty{text-align:center;padding:36px;color:var(--text3);}
-    code.lote{font-size:11px;background:var(--cream2);padding:2px 5px;border-radius:4px;font-family:monospace;}
-
-    /* ── MOBILE RESPONSIVE ── */
-    @media(max-width:860px){
-      .sidebar{position:fixed;top:0;left:0;height:100%;transform:translateX(-100%);}
-      .sidebar.open{transform:translateX(0);}
-      .overlay{display:block;}
-      .topbar{display:flex;}
-      .g4{grid-template-columns:1fr 1fr;}
-      .g3{grid-template-columns:1fr 1fr;}
-      .g2{grid-template-columns:1fr;}
-      .days-row{grid-template-columns:1fr 1fr;}
-      .ph{padding:12px 16px;}
-      .pc{padding:14px 16px;}
-      .ph-title{font-size:18px;}
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
-    @media(max-width:540px){
-      .g4{grid-template-columns:1fr 1fr;}
-      .g3{grid-template-columns:1fr;}
-      .days-row{grid-template-columns:1fr;}
-      .form-row{grid-template-columns:1fr;}
-      .pc{padding:12px 14px;}
-      .tabs .tab{padding:8px 12px;font-size:12px;}
-      .demand-banner{flex-direction:column;gap:8px;}
-      .ph-actions .btn-outline{display:none;}
-      .card{padding:14px;}
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+      overflow: hidden; /* prevent body scroll — handled by .main */
+    }
+
+    /* ══ LAYOUT ══ */
+    .app {
+      display: flex;
+      height: 100dvh;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ══ SIDEBAR ══ */
+    .sidebar {
+      width: var(--sb-width);
+      min-width: var(--sb-width);
+      height: 100%;
+      background: var(--wine);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      flex-shrink: 0;
+      z-index: 300;
+      transition: none; /* desktop: no transition needed */
+    }
+
+    .sb-logo {
+      padding: 20px 16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .sb-logo-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800; color: #fff; }
+    .sb-logo-text span { color: var(--gold-light); }
+    .sb-sub { color: rgba(255,255,255,.4); font-size: 10px; margin-top: 4px; letter-spacing: .8px; text-transform: uppercase; }
+
+    .nav { padding: 10px 0; flex: 1; overflow-y: auto; }
+    .nav-section { padding: 14px 16px 4px; font-size: 10px; font-weight: 700; color: rgba(255,255,255,.3); letter-spacing: 1px; text-transform: uppercase; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 16px; cursor: pointer;
+      color: rgba(255,255,255,.72); font-size: 13px; font-weight: 500;
+      border-left: 3px solid transparent;
+      transition: background .15s, color .15s;
+      user-select: none;
+    }
+    .nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
+    .nav-item.active { background: rgba(255,255,255,.13); color: #fff; border-left-color: var(--gold-light); }
+    .nav-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .nav-badge { margin-left: auto; background: var(--red); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 20px; }
+    .sb-footer { padding: 12px 16px; border-top: 1px solid rgba(255,255,255,.1); flex-shrink: 0; }
+    .sb-footer span { color: rgba(255,255,255,.35); font-size: 11px; }
+
+    /* ══ MAIN ══ */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+      background: var(--cream);
+    }
+
+    /* ══ TOPBAR (mobile only, hidden desktop) ══ */
+    .topbar {
+      display: none;
+      height: var(--topbar-h);
+      background: var(--wine);
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+      z-index: 200;
+      position: relative;
+    }
+    .topbar-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 800; color: #fff; }
+    .topbar-logo span { color: var(--gold-light); }
+    .topbar-btn {
+      background: rgba(255,255,255,.18);
+      border: none; color: #fff; font-size: 20px;
+      width: 40px; height: 40px; border-radius: var(--rsm);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .15s;
+    }
+    .topbar-btn:active { background: rgba(255,255,255,.3); }
+
+    /* ══ OVERLAY ══ */
+    .overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 250;
+      opacity: 0;
+      transition: opacity .25s ease;
+      touch-action: none;
+    }
+    .overlay.open { opacity: 1; }
+
+    /* ══ CONTENT AREA ══ */
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    /* ══ PAGE HEADER ══ */
+    .ph {
+      background: var(--white);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--cream3);
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .ph-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--wine); font-weight: 700; line-height: 1.2; }
+    .ph-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+    .ph-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+    /* ══ BUTTONS ══ */
+    .btn {
+      padding: 8px 14px; border-radius: var(--rsm);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      border: none; font-family: inherit;
+      transition: all .15s;
+      display: inline-flex; align-items: center; gap: 5px;
+      white-space: nowrap; touch-action: manipulation;
+    }
+    .btn:active { transform: scale(.96); }
+    .btn-primary { background: var(--wine); color: #fff; }
+    .btn-primary:hover { background: var(--wine2); }
+    .btn-outline { background: transparent; color: var(--wine); border: 1.5px solid var(--wine); }
+    .btn-outline:hover { background: var(--wine); color: #fff; }
+    .btn-ghost { background: transparent; color: var(--text3); border: 1.5px solid var(--cream3); }
+    .btn-ghost:hover { border-color: var(--wine); color: var(--wine); }
+    .btn-gold { background: var(--gold); color: #fff; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-xs { padding: 4px 9px; font-size: 11px; }
+
+    /* ══ CONTENT PADDING ══ */
+    .pc { padding: 20px 24px; }
+
+    /* ══ SCREEN ══ */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ══ CARDS ══ */
+    .card { background: var(--white); border-radius: var(--r); padding: 18px; box-shadow: var(--shadow); }
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+    /* ══ STATS ══ */
+    .stat { background: var(--white); border-radius: var(--r); padding: 16px 18px; box-shadow: var(--shadow); border-left: 4px solid var(--wine); }
+    .stat.ok { border-left-color: var(--green); }
+    .stat.warn { border-left-color: var(--amber); }
+    .stat.danger { border-left-color: var(--red); }
+    .stat.info { border-left-color: var(--blue); }
+    .stat-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; font-weight: 600; }
+    .stat-val { font-size: 26px; font-weight: 700; color: var(--text); margin: 4px 0 2px; line-height: 1; }
+    .stat-desc { font-size: 12px; color: var(--text3); }
+
+    /* ══ BADGES ══ */
+    .badge { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .b-red { background: #FEE2E2; color: #B91C1C; }
+    .b-amber { background: #FEF3C7; color: #92400E; }
+    .b-green { background: #DCFCE7; color: #14532D; }
+    .b-blue { background: #DBEAFE; color: #1E40AF; }
+    .b-gray { background: var(--cream2); color: var(--text2); }
+
+    /* ══ INFO BOX ══ */
+    .ib { border-radius: var(--rsm); padding: 12px 14px; margin-bottom: 12px; font-size: 13px; }
+    .ib.ok { background: #F0FDF4; border-left: 4px solid var(--green); color: #166534; }
+    .ib.warn { background: #FFFBEB; border-left: 4px solid var(--amber); color: #92400E; }
+    .ib.danger { background: #FEF2F2; border-left: 4px solid var(--red); color: #991B1B; }
+    .ib.info { background: #EFF6FF; border-left: 4px solid var(--blue); color: #1e3a8a; }
+    .ib strong { display: block; margin-bottom: 2px; }
+
+    /* ══ TABLE ══ */
+    .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; padding: 9px 12px; background: var(--cream2); color: var(--text2); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; white-space: nowrap; }
+    th:first-child { border-radius: var(--rsm) 0 0 var(--rsm); }
+    th:last-child { border-radius: 0 var(--rsm) var(--rsm) 0; }
+    td { padding: 10px 12px; border-bottom: 1px solid var(--cream2); color: var(--text); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(253,248,243,.6); }
+
+    /* ══ SECTION TITLE ══ */
+    .st { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .st::after { content: ''; flex: 1; height: 1px; background: var(--cream3); }
+    .divider { height: 1px; background: var(--cream3); margin: 14px 0; }
+
+    /* ══ TABS ══ */
+    .tabs { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 2px solid var(--cream3); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { padding: 9px 16px; font-size: 13px; font-weight: 600; color: var(--text3); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all .15s; white-space: nowrap; flex-shrink: 0; }
+    .tab.active { color: var(--wine); border-bottom-color: var(--wine); }
+    .tab:hover:not(.active) { color: var(--text2); }
+
+    /* ══ ALERTS ══ */
+    .alert-list { display: flex; flex-direction: column; gap: 8px; }
+    .alert-item { display: flex; align-items: flex-start; gap: 10px; padding: 11px 13px; border-radius: var(--rsm); background: var(--cream); border: 1px solid var(--cream3); }
+    .adot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .adot.red { background: var(--red); }
+    .adot.amber { background: var(--amber); }
+    .adot.green { background: var(--green); }
+    .alert-text { font-size: 13px; color: var(--text); }
+    .alert-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+    /* ══ DAY CARDS ══ */
+    .days-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .day-card { background: var(--white); border-radius: var(--rsm); padding: 12px; box-shadow: var(--shadow); border-top: 3px solid var(--cream3); }
+    .day-card.today { border-top-color: var(--wine); }
+    .day-card.holiday { border-top-color: #6366f1; background: #fafafe; }
+    .day-name { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+    .day-name.today-lbl { color: var(--wine); }
+    .day-name.holiday-lbl { color: #4f46e5; }
+    .meal-block { margin-bottom: 8px; }
+    .meal-type { font-size: 10px; font-weight: 600; color: #a07830; text-transform: uppercase; letter-spacing: .3px; margin-bottom: 2px; }
+    .meal-name { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .meal-side { font-size: 11px; color: var(--text3); margin-top: 1px; }
+    .no-svc { font-size: 11px; color: var(--text4); text-align: center; padding: 14px 0; }
+
+    /* ══ DEMAND BANNER ══ */
+    .demand-banner {
+      background: linear-gradient(135deg, var(--wine), var(--wine2));
+      border-radius: var(--r); padding: 16px 20px; margin-bottom: 18px;
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .demand-icon { font-size: 26px; flex-shrink: 0; }
+    .demand-text { color: #fff; flex: 1; min-width: 0; }
+    .demand-text strong { display: block; font-size: 14px; margin-bottom: 2px; }
+    .demand-text span { font-size: 12px; opacity: .82; }
+
+    /* ══ SUGESTÕES ══ */
+    .sug-card { background: var(--white); border-radius: var(--r); box-shadow: var(--shadow); padding: 14px 16px; border-left: 5px solid var(--gold); }
+    .sug-card.urgent { border-left-color: var(--red); }
+    .sug-card.warn { border-left-color: var(--amber); }
+    .sug-priority { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 5px; }
+    .sug-dish { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .sug-reason { font-size: 12px; color: var(--text3); line-height: 1.4; }
+    .sug-actions { margin-top: 10px; display: flex; gap: 7px; flex-wrap: wrap; }
+
+    /* ══ FICHA ══ */
+    .ficha-card { background: var(--white); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; }
+    .ficha-header { background: var(--wine); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .ficha-title { color: #fff; font-weight: 700; font-size: 14px; }
+    .ficha-meta { color: rgba(255,255,255,.6); font-size: 11px; }
+    .ficha-body { padding: 14px 16px; }
+    .ing-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--cream2); }
+    .ing-row:last-child { border-bottom: none; }
+    .ing-name { font-size: 13px; color: var(--text); }
+    .ing-qty { font-size: 13px; font-weight: 600; color: var(--wine); }
+
+    /* ══ IMPORT ══ */
+    .import-zone { border: 2px dashed var(--cream4); border-radius: var(--r); padding: 30px; text-align: center; cursor: pointer; transition: all .2s; background: var(--cream); }
+    .import-zone:hover, .import-zone.drag { border-color: var(--wine); background: #fdf0f4; }
+
+    /* ══ CALENDAR ══ */
+    .cal-header-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 3px; }
+    .cal-header-row span { text-align: center; font-size: 11px; font-weight: 700; color: var(--text3); padding: 4px; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .cal-day { aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid transparent; transition: all .12s; position: relative; }
+    .cal-day.working { background: var(--white); color: var(--text); box-shadow: var(--shadow); }
+    .cal-day.working:hover { border-color: var(--wine); }
+    .cal-day.holiday { background: #ede9fe; color: #4f46e5; }
+    .cal-day.weekend { background: var(--cream2); color: var(--text4); cursor: default; }
+
+    /* ══ MODAL ══ */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 500;
+      display: flex; align-items: flex-end; justify-content: center; /* bottom sheet on mobile */
+      padding: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white);
+      border-radius: var(--r) var(--r) 0 0;
+      box-shadow: var(--shadow-md);
+      width: 100%;
+      max-width: 520px;
+      max-height: 92dvh;
+      overflow-y: auto;
+      transform: translateY(40px);
+      transition: transform .3s cubic-bezier(.16,1,.3,1);
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    /* desktop: centered */
+    @media(min-width:640px) {
+      .modal-overlay { align-items: center; padding: 16px; }
+      .modal { border-radius: var(--r); transform: translateY(16px); }
+    }
+    .modal-handle { width: 36px; height: 4px; background: var(--cream3); border-radius: 2px; margin: 12px auto 4px; }
+    @media(min-width:640px) { .modal-handle { display: none; } }
+    .modal-header { padding: 14px 20px; border-bottom: 1px solid var(--cream3); display: flex; align-items: center; justify-content: space-between; }
+    .modal-title { font-size: 15px; font-weight: 700; color: var(--wine); }
+    .modal-close { background: var(--cream2); border: none; font-size: 15px; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text3); }
+    .modal-body { padding: 16px 20px; }
+    .modal-footer { padding: 12px 20px; border-top: 1px solid var(--cream3); display: flex; gap: 8px; justify-content: flex-end; }
+
+    /* ══ FORM ══ */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+    .form-group label { font-size: 12px; font-weight: 600; color: var(--text2); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 10px 12px; border: 1.5px solid var(--cream3); border-radius: var(--rsm);
+      font-family: inherit; font-size: 14px; color: var(--text); /* bigger font prevents zoom on iOS */
+      background: var(--white); outline: none; width: 100%;
+      -webkit-appearance: none; appearance: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--wine); }
+    .form-full { grid-column: 1 / -1; }
+    .chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip { padding: 7px 13px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--cream3); background: var(--white); color: var(--text3); transition: all .12s; user-select: none; touch-action: manipulation; }
+    .chip.selected { background: var(--wine); color: #fff; border-color: var(--wine); }
+
+    /* ══ PROGRESS ══ */
+    .pbar { height: 6px; background: var(--cream2); border-radius: 3px; overflow: hidden; margin-top: 5px; }
+    .pfill { height: 100%; border-radius: 3px; transition: width .4s; }
+    .pfill.green { background: var(--green); }
+    .pfill.amber { background: var(--amber); }
+    .pfill.red { background: var(--red); }
+
+    /* ══ TOAST ══ */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #1c1c1c; color: #fff; padding: 11px 20px;
+      border-radius: 24px; font-size: 13px; font-weight: 600;
+      z-index: 999; opacity: 0; transition: all .3s cubic-bezier(.16,1,.3,1);
+      white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,.3);
+      max-width: calc(100vw - 32px);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast.success { background: #14532d; }
+    .toast.error { background: #991b1b; }
+
+    /* ══ MISC ══ */
+    .mt8 { margin-top: 8px; }
+    .mt12 { margin-top: 12px; }
+    .mt16 { margin-top: 16px; }
+    code.lote { font-size: 11px; background: var(--cream2); padding: 2px 5px; border-radius: 4px; font-family: monospace; }
+    .empty { text-align: center; padding: 36px; color: var(--text3); }
+
+    /* ════════════════════════════
+       MOBILE RESPONSIVE
+    ════════════════════════════ */
+    @media (max-width: 860px) {
+      /* Sidebar becomes fixed drawer */
+      .sidebar {
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        transform: translateX(-100%);
+        transition: transform .28s cubic-bezier(.16,1,.3,1);
+        box-shadow: none;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0,0,0,.25);
+      }
+
+      /* Show overlay */
+      .overlay { display: block; }
+
+      /* Show topbar */
+      .topbar { display: flex; }
+
+      /* Grids collapse */
+      .g4 { grid-template-columns: 1fr 1fr; }
+      .g3 { grid-template-columns: 1fr 1fr; }
+      .g2 { grid-template-columns: 1fr; }
+
+      /* Page header */
+      .ph { padding: 12px 16px; }
+      .ph-title { font-size: 17px; }
+      .pc { padding: 14px 16px; }
+
+      /* Days row scrollable on mobile */
+      .days-row {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: 10px;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+      }
+      .days-row::-webkit-scrollbar { display: none; }
+      .day-card {
+        flex: 0 0 200px;
+        scroll-snap-align: start;
+      }
+
+      /* Stats smaller */
+      .stat-val { font-size: 22px; }
+
+      /* Banner wrap */
+      .demand-banner { flex-direction: column; gap: 10px; }
+    }
+
+    @media (max-width: 540px) {
+      .g4 { grid-template-columns: 1fr 1fr; }
+      .g3 { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .pc { padding: 12px 14px; }
+      .tabs .tab { padding: 8px 12px; font-size: 12px; }
+      .ph-actions .btn-outline { display: none; }
+      .card { padding: 14px; }
+
+      /* Day card narrower on small screens */
+      .day-card { flex: 0 0 170px; }
+
+      /* Ficha grid single col */
+      .g3.fichas-grid { grid-template-columns: 1fr; }
+
+      /* Demand banner actions */
+      .demand-banner .btn { width: 100%; justify-content: center; }
+    }
+
+    /* Bottom safe area (iOS) */
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+      .modal-footer { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+      .sb-footer { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
     }
   </style>
 </head>
 <body>
 
-<!-- TOPBAR MOBILE -->
-<div class="topbar" id="topbar">
-  <div class="topbar-logo">ALL<span>moço</span></div>
-  <button class="topbar-btn" onclick="toggleSidebar()">☰</button>
-</div>
-
-<!-- OVERLAY -->
-<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+<!-- OVERLAY — tap to close sidebar -->
+<div class="overlay" id="overlay"></div>
 
 <div class="app">
-  <!-- SIDEBAR -->
+  <!-- ══ SIDEBAR ══ -->
   <aside class="sidebar" id="sidebar">
     <div class="sb-logo">
       <div class="sb-logo-text">ALL<span>moço</span></div>
@@ -301,7 +497,7 @@
       </div>
       <div class="nav-section">Operação</div>
       <div class="nav-item" onclick="show('sugestoes',this)">
-        <span class="nav-icon">💡</span> Sugestões IA
+        <span class="nav-icon">💡</span> Sugestões
         <span class="nav-badge">4</span>
       </div>
       <div class="nav-item" onclick="show('cardapio',this)">
@@ -328,764 +524,684 @@
     <div class="sb-footer"><span id="sb-footer">RU · Maio 2025</span></div>
   </aside>
 
-  <!-- MAIN -->
-  <main class="main" id="mainContent">
-
-    <!-- ══════════════ DASHBOARD ══════════════ -->
-    <div id="dashboard" class="screen active">
-      <div class="ph">
-        <div>
-          <div class="ph-title">Dashboard</div>
-          <div class="ph-sub" id="dash-sub">Visão geral operacional</div>
-        </div>
-        <div class="ph-actions">
-          <button class="btn btn-outline btn-sm" onclick="show('sugestoes',null)">💡 Sugestões</button>
-          <button class="btn btn-primary btn-sm" onclick="show('cardapio',null)">🍽️ Cardápio</button>
-        </div>
-      </div>
-      <div class="pc">
-        <div class="g4" style="margin-bottom:18px;">
-          <div class="stat danger">
-            <div class="stat-label">Vencendo em 7 dias</div>
-            <div class="stat-val">3</div>
-            <div class="stat-desc">Itens críticos</div>
-          </div>
-          <div class="stat warn">
-            <div class="stat-label">Vencendo em 15 dias</div>
-            <div class="stat-val">5</div>
-            <div class="stat-desc">Requerem atenção</div>
-          </div>
-          <div class="stat ok">
-            <div class="stat-label">Dias úteis no mês</div>
-            <div class="stat-val">19</div>
-            <div class="stat-desc">Junho 2025</div>
-          </div>
-          <div class="stat info">
-            <div class="stat-label">Sugestões pendentes</div>
-            <div class="stat-val">4</div>
-            <div class="stat-desc">Com base no estoque</div>
-          </div>
-        </div>
-
-        <div class="g2">
-          <!-- Alertas -->
-          <div class="card">
-            <div class="st">⚠️ Alertas de Validade</div>
-            <div class="alert-list">
-              <div class="alert-item" style="border-left:3px solid var(--red);">
-                <div class="adot red"></div>
-                <div>
-                  <div class="alert-text"><strong>Frango (FR-012)</strong> — vence em <strong>3 dias</strong></div>
-                  <div class="alert-meta">28,5 kg · 29/05 · Perda: R$ 571</div>
-                </div>
-              </div>
-              <div class="alert-item" style="border-left:3px solid var(--red);">
-                <div class="adot red"></div>
-                <div>
-                  <div class="alert-text"><strong>Óleo de soja (OL-007)</strong> — vence em <strong>5 dias</strong></div>
-                  <div class="alert-meta">12 L · 31/05 · Perda: R$ 96</div>
-                </div>
-              </div>
-              <div class="alert-item" style="border-left:3px solid var(--red);">
-                <div class="adot red"></div>
-                <div>
-                  <div class="alert-text"><strong>Alho (AL-003)</strong> — vence em <strong>6 dias</strong></div>
-                  <div class="alert-meta">2,2 kg · 01/06 · Perda: R$ 44</div>
-                </div>
-              </div>
-              <div class="alert-item" style="border-left:3px solid var(--amber);">
-                <div class="adot amber"></div>
-                <div>
-                  <div class="alert-text"><strong>Arroz (AR-019)</strong> — vence em <strong>12 dias</strong></div>
-                  <div class="alert-meta">120 kg · 07/06 · Perda: R$ 360</div>
-                </div>
-              </div>
-              <div class="alert-item" style="border-left:3px solid var(--green);">
-                <div class="adot green"></div>
-                <div>
-                  <div class="alert-text">Feijão — estoque OK para a semana</div>
-                  <div class="alert-meta">85 kg · Validade: 15/07</div>
-                </div>
-              </div>
-            </div>
-            <div class="mt12" style="padding:10px 13px;background:#FEF2F2;border-radius:var(--rsm);font-size:12px;color:#991b1b;font-weight:600;">
-              💸 Prejuízo potencial: <strong>R$ 1.071</strong> se não utilizados
-            </div>
-          </div>
-
-          <!-- Semana -->
-          <div class="card">
-            <div class="st">🍽️ Semana Atual (26–30 mai)</div>
-            <table>
-              <thead>
-                <tr><th>Dia</th><th>Almoço</th><th>Jantar</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><strong>Seg 26</strong></td><td>Frango grelhado</td><td>Omelete</td></tr>
-                <tr><td><strong>Ter 27</strong></td><td>Carne moída</td><td>Frango refogado</td></tr>
-                <tr><td><strong>Qua 28</strong></td><td>Peixe grelhado</td><td>Carne moída</td></tr>
-                <tr><td><strong>Qui 29</strong></td><td>Frango grelhado</td><td>Omelete</td></tr>
-                <tr><td><strong>Sex 30</strong></td><td>Carne assada</td><td>Frango grelhado</td></tr>
-              </tbody>
-            </table>
-            <div class="divider"></div>
-            <div style="font-size:12px;color:var(--text3);">📅 Feriado: Corpus Christi 19/jun</div>
-          </div>
-        </div>
-
-        <div class="mt16">
-          <div class="demand-banner">
-            <div class="demand-icon">🛒</div>
-            <div class="demand-text">
-              <strong>2 demandas de compra pendentes</strong>
-              <span>Frango: faltam 45 kg · Óleo: faltam 8 L</span>
-            </div>
-            <button class="btn btn-sm" style="background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);" onclick="show('relatorios',null)">Ver relatório →</button>
-          </div>
-        </div>
-      </div>
+  <!-- ══ MAIN ══ -->
+  <div class="main">
+    <!-- Topbar (mobile only) -->
+    <div class="topbar" id="topbar">
+      <div class="topbar-logo">ALL<span>moço</span></div>
+      <button class="topbar-btn" id="menu-btn" aria-label="Menu">☰</button>
     </div>
 
-    <!-- ══════════════ SUGESTÕES ══════════════ -->
-    <div id="sugestoes" class="screen">
-      <div class="ph">
-        <div>
-          <div class="ph-title">💡 Sugestões IA</div>
-          <div class="ph-sub">Com base nas validades do estoque</div>
-        </div>
-        <div class="ph-actions">
-          <button class="btn btn-gold btn-sm" onclick="showToast('Sugestões atualizadas!','success')">🔄 Atualizar</button>
-        </div>
-      </div>
-      <div class="pc">
-        <div class="ib info">
-          <strong>ℹ️ Como funciona</strong>
-          O sistema analisa validades e dias úteis para sugerir pratos que evitem perdas. Proteínas têm prioridade máxima.
-        </div>
+    <!-- Scrollable content -->
+    <div class="content-area" id="contentArea">
 
-        <div class="st" style="margin-bottom:14px;">🔴 Urgente — Use esta semana</div>
-        <div class="g2" style="margin-bottom:20px;">
-          <div class="sug-card urgent">
-            <div class="sug-priority" style="color:var(--red);">🔴 URGENTE · Frango vence em 3 dias · Perda: R$ 571</div>
-            <div class="sug-dish">🍗 Frango Grelhado com Alho</div>
-            <div class="sug-reason">Usa Frango FR-012 (28,5 kg) + Alho AL-003 (2,2 kg) — ambos críticos esta semana. Ideal para almoço de segunda e quinta.</div>
-            <div class="sug-actions">
-              <button class="btn btn-primary btn-sm" onclick="adicionarCardapio('Frango Grelhado com Alho')">+ Adicionar ao cardápio</button>
-              <button class="btn btn-ghost btn-sm" onclick="show('fichas',null)">Ver ficha</button>
-            </div>
+      <!-- ══════════ DASHBOARD ══════════ -->
+      <div id="dashboard" class="screen active">
+        <div class="ph">
+          <div>
+            <div class="ph-title">Dashboard</div>
+            <div class="ph-sub" id="dash-sub">Visão geral operacional</div>
           </div>
-          <div class="sug-card urgent">
-            <div class="sug-priority" style="color:var(--red);">🔴 URGENTE · Óleo vence em 5 dias</div>
-            <div class="sug-dish">🍗 Frango Refogado</div>
-            <div class="sug-reason">Consome o Frango FR-012 restante e o Óleo OL-007 (12 L) em uma única preparação. Ideal para jantar de terça.</div>
-            <div class="sug-actions">
-              <button class="btn btn-primary btn-sm" onclick="adicionarCardapio('Frango Refogado')">+ Adicionar ao cardápio</button>
-            </div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm" onclick="show('sugestoes',null)">💡 Sugestões</button>
+            <button class="btn btn-primary btn-sm" onclick="show('cardapio',null)">🍽️ Cardápio</button>
           </div>
         </div>
-
-        <div class="st" style="margin-bottom:14px;">🟡 Atenção — Próxima semana</div>
-        <div class="g2" style="margin-bottom:20px;">
-          <div class="sug-card warn">
-            <div class="sug-priority" style="color:var(--amber);">🟡 Cebola vence em 9 dias · CE-011</div>
-            <div class="sug-dish">🥩 Carne Moída com Cebola</div>
-            <div class="sug-reason">Cebola CE-011 (15 kg) deteriora rápido. Use em carne moída na semana que vem.</div>
-            <div class="sug-actions">
-              <button class="btn btn-outline btn-sm" onclick="adicionarCardapio('Carne Moída com Cebola')">+ Adicionar</button>
+        <div class="pc">
+          <div class="g4" style="margin-bottom:18px;">
+            <div class="stat danger">
+              <div class="stat-label">Vencendo em 7 dias</div>
+              <div class="stat-val">3</div>
+              <div class="stat-desc">Itens críticos</div>
+            </div>
+            <div class="stat warn">
+              <div class="stat-label">Vencendo em 15 dias</div>
+              <div class="stat-val">5</div>
+              <div class="stat-desc">Requerem atenção</div>
+            </div>
+            <div class="stat ok">
+              <div class="stat-label">Dias úteis no mês</div>
+              <div class="stat-val">19</div>
+              <div class="stat-desc">Junho 2025</div>
+            </div>
+            <div class="stat info">
+              <div class="stat-label">Sugestões pendentes</div>
+              <div class="stat-val">4</div>
+              <div class="stat-desc">Com base no estoque</div>
             </div>
           </div>
-          <div class="sug-card warn">
-            <div class="sug-priority" style="color:var(--amber);">🟡 Arroz vence em 12 dias · AR-019</div>
-            <div class="sug-dish">🍚 Arroz Branco (consumo elevado)</div>
-            <div class="sug-reason">Priorizar o lote AR-019 (120 kg) como acompanhamento em todas as refeições das próximas 2 semanas.</div>
-            <div class="sug-actions">
-              <button class="btn btn-outline btn-sm" onclick="adicionarCardapio('Arroz Branco prioritário')">+ Adicionar</button>
+
+          <div class="g2">
+            <div class="card">
+              <div class="st">⚠️ Alertas de Validade</div>
+              <div class="alert-list">
+                <div class="alert-item" style="border-left:3px solid var(--red);">
+                  <div class="adot red"></div>
+                  <div>
+                    <div class="alert-text"><strong>Frango (FR-012)</strong> — vence em <strong>3 dias</strong></div>
+                    <div class="alert-meta">28,5 kg · 29/05 · Perda: R$ 571</div>
+                  </div>
+                </div>
+                <div class="alert-item" style="border-left:3px solid var(--red);">
+                  <div class="adot red"></div>
+                  <div>
+                    <div class="alert-text"><strong>Óleo de soja (OL-007)</strong> — vence em <strong>5 dias</strong></div>
+                    <div class="alert-meta">12 L · 31/05 · Perda: R$ 96</div>
+                  </div>
+                </div>
+                <div class="alert-item" style="border-left:3px solid var(--red);">
+                  <div class="adot red"></div>
+                  <div>
+                    <div class="alert-text"><strong>Alho (AL-003)</strong> — vence em <strong>6 dias</strong></div>
+                    <div class="alert-meta">2,2 kg · 01/06 · Perda: R$ 44</div>
+                  </div>
+                </div>
+                <div class="alert-item" style="border-left:3px solid var(--amber);">
+                  <div class="adot amber"></div>
+                  <div>
+                    <div class="alert-text"><strong>Arroz (AR-019)</strong> — vence em <strong>12 dias</strong></div>
+                    <div class="alert-meta">120 kg · 07/06 · Perda: R$ 360</div>
+                  </div>
+                </div>
+                <div class="alert-item" style="border-left:3px solid var(--green);">
+                  <div class="adot green"></div>
+                  <div>
+                    <div class="alert-text">Feijão — estoque OK para a semana</div>
+                    <div class="alert-meta">85 kg · Validade: 15/07</div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt12" style="padding:10px 13px;background:#FEF2F2;border-radius:var(--rsm);font-size:12px;color:#991b1b;font-weight:600;">
+                💸 Prejuízo potencial: <strong>R$ 1.071</strong> se não utilizados
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="st">🍽️ Semana Atual (26–30 mai)</div>
+              <table>
+                <thead><tr><th>Dia</th><th>Almoço</th><th>Jantar</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Seg 26</strong></td><td>Frango grelhado</td><td>Omelete</td></tr>
+                  <tr><td><strong>Ter 27</strong></td><td>Carne moída</td><td>Frango refogado</td></tr>
+                  <tr><td><strong>Qua 28</strong></td><td>Peixe grelhado</td><td>Carne moída</td></tr>
+                  <tr><td><strong>Qui 29</strong></td><td>Frango grelhado</td><td>Omelete</td></tr>
+                  <tr><td><strong>Sex 30</strong></td><td>Carne assada</td><td>Frango grelhado</td></tr>
+                </tbody>
+              </table>
+              <div class="divider"></div>
+              <div style="font-size:12px;color:var(--text3);">📅 Feriado: Corpus Christi 19/jun</div>
             </div>
           </div>
-        </div>
 
-        <div class="card">
-          <div class="st">📊 Prioridade por Categoria</div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#fce7e7;border-radius:var(--rsm);border-left:4px solid var(--red);">
-              <span style="font-size:13px;font-weight:600;color:#991b1b;">🥩 Carne / Proteína Animal</span>
-              <span class="badge b-red">Máxima</span>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#fce7e7;border-radius:var(--rsm);border-left:4px solid var(--red);">
-              <span style="font-size:13px;font-weight:600;color:#991b1b;">🥛 Laticínios</span>
-              <span class="badge b-red">Alta</span>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#FEF3C7;border-radius:var(--rsm);border-left:4px solid var(--amber);">
-              <span style="font-size:13px;font-weight:600;color:#92400E;">🌿 Hortaliças / Frutas / FLV</span>
-              <span class="badge b-amber">Média</span>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#DBEAFE;border-radius:var(--rsm);border-left:4px solid var(--blue);">
-              <span style="font-size:13px;font-weight:600;color:#1E40AF;">🌾 Grãos / Cereais</span>
-              <span class="badge b-blue">Baixa</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════ CARDÁPIO ══════════════ -->
-    <div id="cardapio" class="screen">
-      <div class="ph">
-        <div>
-          <div class="ph-title">Cardápio Mensal</div>
-          <div class="ph-sub">Maio 2025 · 500 refeições/dia</div>
-        </div>
-        <div class="ph-actions">
-          <button class="btn btn-ghost btn-sm">← Abr</button>
-          <button class="btn btn-ghost btn-sm">Jun →</button>
-          <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-prato')">+ Prato</button>
-        </div>
-      </div>
-      <div class="pc">
-        <div class="ib ok"><strong>✅ Estoque OK para a semana atual</strong>Arroz · Feijão · Frango · Óleo parcial</div>
-        <div class="ib warn"><strong>⚠️ Frango (FR-012) vence 29/05</strong>Programado para seg e qui desta semana.</div>
-
-        <div class="tabs" id="cardapio-tabs">
-          <div class="tab active" onclick="showWeek(0,this)">Sem 1 (26–30 mai)</div>
-          <div class="tab" onclick="showWeek(1,this)">Sem 2 (02–06 jun)</div>
-          <div class="tab" onclick="showWeek(2,this)">Sem 3 (09–13 jun)</div>
-          <div class="tab" onclick="showWeek(3,this)">Sem 4 (16–20 jun)</div>
-        </div>
-
-        <!-- Semana 1 -->
-        <div id="week-0">
-          <div class="days-row">
-            <div class="day-card today">
-              <div class="day-name today-lbl">🗓 SEG 26</div>
-              <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div>
-              <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div>
-              <div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div>
-            </div>
-            <div class="day-card">
-              <div class="day-name">TER 27</div>
-              <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, feijão, macarrão</div></div>
-              <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango refogado</div><div class="meal-side">Arroz, legumes</div></div>
-              <div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div>
-            </div>
-            <div class="day-card">
-              <div class="day-name">QUA 28</div>
-              <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Peixe grelhado</div><div class="meal-side">Arroz, feijão, purê</div></div>
-              <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Macarrão, salada</div></div>
-              <div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div>
-            </div>
-            <div class="day-card">
-              <div class="day-name">QUI 29</div>
-              <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div>
-              <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div>
-              <div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Frango vence hoje</span></div>
-            </div>
-            <div class="day-card">
-              <div class="day-name">SEX 30</div>
-              <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, feijão, farofa</div></div>
-              <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, legumes</div></div>
-              <div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Semana 2 -->
-        <div id="week-1" style="display:none;">
-          <div class="days-row">
-            <div class="day-card"><div class="day-name">SEG 02</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
-            <div class="day-card"><div class="day-name">TER 03</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Peixe assado</div><div class="meal-side">Arroz, feijão, purê</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
-            <div class="day-card"><div class="day-name">QUA 04</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango ao forno</div><div class="meal-side">Arroz, feijão, farofa</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Macarrão, salada</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
-            <div class="day-card"><div class="day-name">QUI 05</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, feijão, salada</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango refogado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
-            <div class="day-card"><div class="day-name">SEX 06</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Peixe grelhado</div><div class="meal-side">Arroz, feijão, fruta</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
-          </div>
-        </div>
-
-        <!-- Semana 3 -->
-        <div id="week-2" style="display:none;">
-          <div class="days-row">
-            <div class="day-card"><div class="day-name">SEG 09</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
-            <div class="day-card"><div class="day-name">TER 10</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, feijão, farofa</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
-            <div class="day-card"><div class="day-name">QUA 11</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Peixe grelhado</div><div class="meal-side">Arroz, feijão, purê</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango refogado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
-            <div class="day-card"><div class="day-name">QUI 12</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango ao forno</div><div class="meal-side">Arroz, feijão, farofa</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Macarrão, salada</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
-            <div class="day-card"><div class="day-name">SEX 13</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, feijão, fruta</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
-          </div>
-        </div>
-
-        <!-- Semana 4 -->
-        <div id="week-3" style="display:none;">
-          <div class="days-row">
-            <div class="day-card"><div class="day-name">SEG 16</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-red" style="font-size:10px;">🛒 Sem estoque</span></div></div>
-            <div class="day-card"><div class="day-name">TER 17</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, feijão, macarrão</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Peixe grelhado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-red" style="font-size:10px;">🛒 Sem estoque</span></div></div>
-            <div class="day-card"><div class="day-name">QUA 18</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango ao forno</div><div class="meal-side">Arroz, feijão, farofa</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-red" style="font-size:10px;">🛒 Sem estoque</span></div></div>
-            <div class="day-card holiday"><div class="day-name holiday-lbl">⛪ QUI 19</div><div class="no-svc">Corpus Christi<br>Sem serviço</div><div class="mt8"><span class="badge b-blue" style="font-size:10px;">Feriado</span></div></div>
-            <div class="day-card"><div class="day-name">SEX 20</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, feijão, fruta</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-red" style="font-size:10px;">🛒 Sem estoque</span></div></div>
-          </div>
-          <div class="ib danger mt12"><strong>🛒 Semana 4 requer compra urgente</strong>Frango: 45 kg · Óleo: 8 L · Carne: 75 kg. Atenção: qui 19/06 é feriado.</div>
-        </div>
-
-        <!-- Demanda -->
-        <div class="card mt16">
-          <div class="st">📦 Demanda estimada — Semana 1</div>
-          <div class="g4">
-            <div>
-              <div class="stat-label">Arroz</div>
-              <div style="font-size:18px;font-weight:700;margin:4px 0;">120 kg</div>
-              <div class="pbar"><div class="pfill green" style="width:85%;"></div></div>
-              <div style="font-size:11px;color:var(--green);margin-top:3px;">Suficiente</div>
-            </div>
-            <div>
-              <div class="stat-label">Frango</div>
-              <div style="font-size:18px;font-weight:700;margin:4px 0;">90 kg</div>
-              <div class="pbar"><div class="pfill amber" style="width:60%;"></div></div>
-              <div style="font-size:11px;color:var(--amber);margin-top:3px;">Parcial (73,5 kg)</div>
-            </div>
-            <div>
-              <div class="stat-label">Feijão</div>
-              <div style="font-size:18px;font-weight:700;margin:4px 0;">85 kg</div>
-              <div class="pbar"><div class="pfill green" style="width:100%;"></div></div>
-              <div style="font-size:11px;color:var(--green);margin-top:3px;">Suficiente</div>
-            </div>
-            <div>
-              <div class="stat-label">Óleo</div>
-              <div style="font-size:18px;font-weight:700;margin:4px 0;">20 L</div>
-              <div class="pbar"><div class="pfill amber" style="width:60%;"></div></div>
-              <div style="font-size:11px;color:var(--amber);margin-top:3px;">Parcial (12 L)</div>
+          <div class="mt16">
+            <div class="demand-banner">
+              <div class="demand-icon">🛒</div>
+              <div class="demand-text">
+                <strong>2 demandas de compra pendentes</strong>
+                <span>Frango: faltam 45 kg · Óleo: faltam 8 L</span>
+              </div>
+              <button class="btn btn-sm" style="background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);" onclick="show('relatorios',null)">Ver relatório →</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ══════════════ CALENDÁRIO ══════════════ -->
-    <div id="calendario" class="screen">
-      <div class="ph">
-        <div>
-          <div class="ph-title">📅 Calendário</div>
-          <div class="ph-sub">Feriados, férias e dias sem serviço</div>
+      <!-- ══════════ SUGESTÕES ══════════ -->
+      <div id="sugestoes" class="screen">
+        <div class="ph">
+          <div>
+            <div class="ph-title">💡 Sugestões IA</div>
+            <div class="ph-sub">Com base nas validades do estoque</div>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-gold btn-sm" onclick="showToast('Sugestões atualizadas!','success')">🔄 Atualizar</button>
+          </div>
         </div>
-        <div class="ph-actions">
-          <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-event')">+ Evento</button>
-        </div>
-      </div>
-      <div class="pc">
-        <div class="g2" style="margin-bottom:16px;">
+        <div class="pc">
+          <div class="ib info">
+            <strong>ℹ️ Como funciona</strong>
+            O sistema analisa validades e dias úteis para sugerir pratos que evitem perdas. Proteínas têm prioridade máxima.
+          </div>
+          <div class="st" style="margin-bottom:14px;">🔴 Urgente — Use esta semana</div>
+          <div class="g2" style="margin-bottom:20px;">
+            <div class="sug-card urgent">
+              <div class="sug-priority" style="color:var(--red);">🔴 URGENTE · Frango vence em 3 dias · Perda: R$ 571</div>
+              <div class="sug-dish">🍗 Frango Grelhado com Alho</div>
+              <div class="sug-reason">Usa Frango FR-012 (28,5 kg) + Alho AL-003 (2,2 kg) — ambos críticos esta semana. Ideal para almoço de segunda e quinta.</div>
+              <div class="sug-actions">
+                <button class="btn btn-primary btn-sm" onclick="adicionarCardapio('Frango Grelhado com Alho')">+ Adicionar ao cardápio</button>
+                <button class="btn btn-ghost btn-sm" onclick="show('fichas',null)">Ver ficha</button>
+              </div>
+            </div>
+            <div class="sug-card urgent">
+              <div class="sug-priority" style="color:var(--red);">🔴 URGENTE · Óleo vence em 5 dias</div>
+              <div class="sug-dish">🍗 Frango Refogado</div>
+              <div class="sug-reason">Consome o Frango FR-012 restante e o Óleo OL-007 (12 L) em uma única preparação. Ideal para jantar de terça.</div>
+              <div class="sug-actions">
+                <button class="btn btn-primary btn-sm" onclick="adicionarCardapio('Frango Refogado')">+ Adicionar ao cardápio</button>
+              </div>
+            </div>
+          </div>
+          <div class="st" style="margin-bottom:14px;">🟡 Atenção — Próxima semana</div>
+          <div class="g2" style="margin-bottom:20px;">
+            <div class="sug-card warn">
+              <div class="sug-priority" style="color:var(--amber);">🟡 Cebola vence em 9 dias · CE-011</div>
+              <div class="sug-dish">🥩 Carne Moída com Cebola</div>
+              <div class="sug-reason">Cebola CE-011 (15 kg) deteriora rápido. Use em carne moída na semana que vem.</div>
+              <div class="sug-actions">
+                <button class="btn btn-outline btn-sm" onclick="adicionarCardapio('Carne Moída com Cebola')">+ Adicionar</button>
+              </div>
+            </div>
+            <div class="sug-card warn">
+              <div class="sug-priority" style="color:var(--amber);">🟡 Arroz vence em 12 dias · AR-019</div>
+              <div class="sug-dish">🍚 Arroz Branco (consumo elevado)</div>
+              <div class="sug-reason">Priorizar o lote AR-019 (120 kg) como acompanhamento em todas as refeições das próximas 2 semanas.</div>
+              <div class="sug-actions">
+                <button class="btn btn-outline btn-sm" onclick="adicionarCardapio('Arroz Branco prioritário')">+ Adicionar</button>
+              </div>
+            </div>
+          </div>
           <div class="card">
-            <div class="st">📊 Junho 2025</div>
+            <div class="st">📊 Prioridade por Categoria</div>
             <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;justify-content:space-between;padding:9px 12px;background:var(--cream);border-radius:var(--rsm);font-size:13px;"><span>📅 Dias no mês</span><strong>30</strong></div>
-              <div style="display:flex;justify-content:space-between;padding:9px 12px;background:var(--cream);border-radius:var(--rsm);font-size:13px;"><span>🗓️ Fins de semana</span><strong>10</strong></div>
-              <div style="display:flex;justify-content:space-between;padding:9px 12px;background:#ede9fe;border-radius:var(--rsm);font-size:13px;"><span>⛪ Feriados</span><strong style="color:#4f46e5;">1</strong></div>
-              <div style="display:flex;justify-content:space-between;padding:9px 12px;background:#fce7f3;border-radius:var(--rsm);font-size:13px;"><span>🏖️ Recesso/Férias</span><strong style="color:#9d174d;">0</strong></div>
-              <div style="display:flex;justify-content:space-between;padding:9px 12px;background:#dcfce7;border-radius:var(--rsm);font-size:13px;"><span style="font-weight:700;">✅ Dias úteis com serviço</span><strong style="color:var(--green);font-size:18px;">19</strong></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="st">📋 Eventos</div>
-            <div id="event-list" style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#ede9fe;border-radius:var(--rsm);">
-                <span>⛪</span>
-                <div><div style="font-size:13px;font-weight:600;color:#4f46e5;">Corpus Christi</div><div style="font-size:11px;color:#6d28d9;">19/jun/2025 · Feriado</div></div>
-                <button class="btn btn-xs btn-ghost" style="margin-left:auto;" onclick="removeEvent(this)">✕</button>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#fce7e7;border-radius:var(--rsm);border-left:4px solid var(--red);">
+                <span style="font-size:13px;font-weight:600;color:#991b1b;">🥩 Carne / Proteína Animal</span>
+                <span class="badge b-red">Máxima</span>
               </div>
-              <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fce7f3;border-radius:var(--rsm);">
-                <span>🏖️</span>
-                <div><div style="font-size:13px;font-weight:600;color:#9d174d;">Recesso de Julho</div><div style="font-size:11px;color:#be185d;">01–05/jul/2025</div></div>
-                <button class="btn btn-xs btn-ghost" style="margin-left:auto;" onclick="removeEvent(this)">✕</button>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#fce7e7;border-radius:var(--rsm);border-left:4px solid var(--red);">
+                <span style="font-size:13px;font-weight:600;color:#991b1b;">🥛 Laticínios</span>
+                <span class="badge b-red">Alta</span>
               </div>
-              <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fce7f3;border-radius:var(--rsm);">
-                <span>🎓</span>
-                <div><div style="font-size:13px;font-weight:600;color:#9d174d;">Férias de Inverno</div><div style="font-size:11px;color:#be185d;">14/jul – 01/ago/2025</div></div>
-                <button class="btn btn-xs btn-ghost" style="margin-left:auto;" onclick="removeEvent(this)">✕</button>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#FEF3C7;border-radius:var(--rsm);border-left:4px solid var(--amber);">
+                <span style="font-size:13px;font-weight:600;color:#92400E;">🌿 Hortaliças / Frutas / FLV</span>
+                <span class="badge b-amber">Média</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#DBEAFE;border-radius:var(--rsm);border-left:4px solid var(--blue);">
+                <span style="font-size:13px;font-weight:600;color:#1E40AF;">🌾 Grãos / Cereais</span>
+                <span class="badge b-blue">Baixa</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
-            <div class="st" style="margin-bottom:0;">🗓️ Junho 2025</div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <span style="display:flex;align-items:center;gap:4px;font-size:11px;"><span style="width:11px;height:11px;background:#ede9fe;border-radius:3px;display:inline-block;"></span>Feriado</span>
-              <span style="display:flex;align-items:center;gap:4px;font-size:11px;"><span style="width:11px;height:11px;background:#fce7f3;border-radius:3px;display:inline-block;"></span>Férias</span>
-              <span style="display:flex;align-items:center;gap:4px;font-size:11px;"><span style="width:11px;height:11px;background:var(--cream2);border-radius:3px;display:inline-block;"></span>FDS</span>
-              <span style="display:flex;align-items:center;gap:4px;font-size:11px;"><span style="width:11px;height:11px;background:var(--white);border:1px solid var(--cream3);border-radius:3px;display:inline-block;"></span>Útil</span>
-            </div>
+      <!-- ══════════ CARDÁPIO ══════════ -->
+      <div id="cardapio" class="screen">
+        <div class="ph">
+          <div>
+            <div class="ph-title">Cardápio Mensal</div>
+            <div class="ph-sub">Maio 2025 · 500 refeições/dia</div>
           </div>
-          <div class="cal-header-row">
-            <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+          <div class="ph-actions">
+            <button class="btn btn-ghost btn-sm">← Abr</button>
+            <button class="btn btn-ghost btn-sm">Jun →</button>
+            <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-prato')">+ Prato</button>
           </div>
-          <div class="cal-grid" id="cal-grid"></div>
         </div>
-      </div>
-    </div>
+        <div class="pc">
+          <div class="ib ok"><strong>✅ Estoque OK para a semana atual</strong>Arroz · Feijão · Frango · Óleo parcial</div>
+          <div class="ib warn"><strong>⚠️ Frango (FR-012) vence 29/05</strong>Programado para seg e qui desta semana.</div>
 
-    <!-- ══════════════ ESTOQUE ══════════════ -->
-    <div id="estoque" class="screen">
-      <div class="ph">
-        <div>
-          <div class="ph-title">Estoque</div>
-          <div class="ph-sub">Ordenado por FEFO — First Expire, First Out</div>
-        </div>
-        <div class="ph-actions">
-          <button class="btn btn-outline btn-sm" onclick="openModal('modal-add-item')">+ Item</button>
-        </div>
-      </div>
-      <div class="pc">
-        <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
-          <input type="search" placeholder="🔍 Buscar..." style="padding:8px 12px;border:1.5px solid var(--cream3);border-radius:var(--rsm);font-family:inherit;font-size:13px;flex:1;min-width:120px;max-width:260px;outline:none;" oninput="filterEstoque(this.value)">
-          <select style="padding:8px 11px;border:1.5px solid var(--cream3);border-radius:var(--rsm);font-family:inherit;font-size:13px;color:var(--text);background:var(--white);outline:none;" onchange="filterByStatus(this.value)">
-            <option value="">Todos</option>
-            <option value="critico">Críticos</option>
-            <option value="atencao">Atenção</option>
-            <option value="ok">OK</option>
-          </select>
-        </div>
-        <div class="card">
-          <div class="tw">
-            <table id="estoque-table">
-              <thead>
-                <tr>
-                  <th>Produto</th>
-                  <th>Lote</th>
-                  <th>Qtd</th>
-                  <th>Validade</th>
-                  <th>Dias</th>
-                  <th>Perda est.</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr data-status="critico">
-                  <td><strong>Frango</strong></td>
-                  <td><code class="lote">FR-012</code></td>
-                  <td>28,5 kg</td>
-                  <td>29/05</td>
-                  <td><strong style="color:var(--red);">3</strong></td>
-                  <td><strong style="color:var(--red);">R$ 570</strong></td>
-                  <td><span class="badge b-red">🔴 CRÍTICO</span></td>
-                  <td><button class="btn btn-xs btn-ghost">✏️</button></td>
-                </tr>
-                <tr data-status="critico">
-                  <td><strong>Óleo de soja</strong></td>
-                  <td><code class="lote">OL-007</code></td>
-                  <td>12 L</td>
-                  <td>31/05</td>
-                  <td><strong style="color:var(--red);">5</strong></td>
-                  <td><strong style="color:var(--red);">R$ 96</strong></td>
-                  <td><span class="badge b-red">🔴 CRÍTICO</span></td>
-                  <td><button class="btn btn-xs btn-ghost">✏️</button></td>
-                </tr>
-                <tr data-status="critico">
-                  <td><strong>Alho</strong></td>
-                  <td><code class="lote">AL-003</code></td>
-                  <td>2,2 kg</td>
-                  <td>01/06</td>
-                  <td><strong style="color:var(--red);">6</strong></td>
-                  <td><strong style="color:var(--amber);">R$ 44</strong></td>
-                  <td><span class="badge b-red">🔴 CRÍTICO</span></td>
-                  <td><button class="btn btn-xs btn-ghost">✏️</button></td>
-                </tr>
-                <tr data-status="atencao">
-                  <td><strong>Cebola</strong></td>
-                  <td><code class="lote">CE-011</code></td>
-                  <td>15 kg</td>
-                  <td>04/06</td>
-                  <td><strong style="color:var(--amber);">9</strong></td>
-                  <td style="color:var(--amber);">R$ 60</td>
-                  <td><span class="badge b-amber">🟡 ATENÇÃO</span></td>
-                  <td><button class="btn btn-xs btn-ghost">✏️</button></td>
-                </tr>
-                <tr data-status="atencao">
-                  <td><strong>Arroz</strong></td>
-                  <td><code class="lote">AR-019</code></td>
-                  <td>120 kg</td>
-                  <td>07/06</td>
-                  <td><strong style="color:var(--amber);">12</strong></td>
-                  <td style="color:var(--amber);">R$ 360</td>
-                  <td><span class="badge b-amber">🟡 ATENÇÃO</span></td>
-                  <td><button class="btn btn-xs btn-ghost">✏️</button></td>
-                </tr>
-                <tr data-status="atencao">
-                  <td><strong>Frango</strong></td>
-                  <td><code class="lote">FR-013</code></td>
-                  <td>45 kg</td>
-                  <td>10/06</td>
-                  <td><strong style="color:var(--amber);">15</strong></td>
-                  <td style="color:var(--amber);">R$ 900</td>
-                  <td><span class="badge b-amber">🟡 ATENÇÃO</span></td>
-                  <td><button class="btn btn-xs btn-ghost">✏️</button></td>
-                </tr>
-                <tr data-status="ok">
-                  <td><strong>Feijão</strong></td>
-                  <td><code class="lote">FJ-004</code></td>
-                  <td>85 kg</td>
-                  <td>15/07</td>
-                  <td><strong style="color:var(--green);">50</strong></td>
-                  <td style="color:var(--green);">—</td>
-                  <td><span class="badge b-green">🟢 OK</span></td>
-                  <td><button class="btn btn-xs btn-ghost">✏️</button></td>
-                </tr>
-                <tr data-status="ok">
-                  <td><strong>Sal</strong></td>
-                  <td><code class="lote">SA-001</code></td>
-                  <td>8 kg</td>
-                  <td>01/01/26</td>
-                  <td><strong style="color:var(--green);">220</strong></td>
-                  <td style="color:var(--green);">—</td>
-                  <td><span class="badge b-green">🟢 OK</span></td>
-                  <td><button class="btn btn-xs btn-ghost">✏️</button></td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="tabs" id="cardapio-tabs">
+            <div class="tab active" onclick="showWeek(0,this)">Sem 1 (26–30 mai)</div>
+            <div class="tab" onclick="showWeek(1,this)">Sem 2 (02–06 jun)</div>
+            <div class="tab" onclick="showWeek(2,this)">Sem 3 (09–13 jun)</div>
+            <div class="tab" onclick="showWeek(3,this)">Sem 4 (16–20 jun)</div>
           </div>
-          <div class="mt12" style="padding:11px 14px;background:#FEF2F2;border-radius:var(--rsm);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-            <span style="font-size:13px;color:#991b1b;font-weight:600;">💸 Prejuízo potencial total:</span>
-            <strong style="font-size:18px;color:#991b1b;">R$ 2.030</strong>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- ══════════════ FICHAS TÉCNICAS ══════════════ -->
-    <div id="fichas" class="screen">
-      <div class="ph">
-        <div>
-          <div class="ph-title">Fichas Técnicas</div>
-          <div class="ph-sub">Ingredientes por porção · 500 refeições</div>
-        </div>
-        <div class="ph-actions">
-          <button class="btn btn-primary btn-sm" onclick="showToast('Em breve!','')">+ Nova ficha</button>
-        </div>
-      </div>
-      <div class="pc">
-        <div class="g3">
-          <div class="ficha-card">
-            <div class="ficha-header"><div><div class="ficha-title">🍗 Frango Grelhado</div><div class="ficha-meta">500 porções · 180g/un</div></div></div>
-            <div class="ficha-body">
-              <div class="ing-row"><span class="ing-name">Frango filé</span><span class="ing-qty">180 g</span></div>
-              <div class="ing-row"><span class="ing-name">Alho</span><span class="ing-qty">5 g</span></div>
-              <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">3 g</span></div>
-              <div class="ing-row"><span class="ing-name">Óleo de soja</span><span class="ing-qty">15 mL</span></div>
-              <div class="divider"></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">90 kg frango</span></div>
+          <div id="week-0">
+            <div class="days-row">
+              <div class="day-card today">
+                <div class="day-name today-lbl">🗓 SEG 26</div>
+                <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div>
+                <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div>
+                <div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div>
+              </div>
+              <div class="day-card">
+                <div class="day-name">TER 27</div>
+                <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, feijão, macarrão</div></div>
+                <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango refogado</div><div class="meal-side">Arroz, legumes</div></div>
+                <div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div>
+              </div>
+              <div class="day-card">
+                <div class="day-name">QUA 28</div>
+                <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Peixe grelhado</div><div class="meal-side">Arroz, feijão, purê</div></div>
+                <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Macarrão, salada</div></div>
+                <div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div>
+              </div>
+              <div class="day-card">
+                <div class="day-name">QUI 29</div>
+                <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div>
+                <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div>
+                <div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Frango vence hoje</span></div>
+              </div>
+              <div class="day-card">
+                <div class="day-name">SEX 30</div>
+                <div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, feijão, farofa</div></div>
+                <div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, legumes</div></div>
+                <div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div>
+              </div>
             </div>
           </div>
-          <div class="ficha-card">
-            <div class="ficha-header"><div><div class="ficha-title">🥩 Carne Moída</div><div class="ficha-meta">500 porções · 150g/un</div></div></div>
-            <div class="ficha-body">
-              <div class="ing-row"><span class="ing-name">Carne bovina moída</span><span class="ing-qty">150 g</span></div>
-              <div class="ing-row"><span class="ing-name">Cebola</span><span class="ing-qty">20 g</span></div>
-              <div class="ing-row"><span class="ing-name">Alho</span><span class="ing-qty">4 g</span></div>
-              <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">3 g</span></div>
-              <div class="ing-row"><span class="ing-name">Óleo de soja</span><span class="ing-qty">10 mL</span></div>
-              <div class="divider"></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">75 kg carne</span></div>
-            </div>
-          </div>
-          <div class="ficha-card">
-            <div class="ficha-header"><div><div class="ficha-title">🍚 Arroz Branco</div><div class="ficha-meta">500 porções · 200g/un</div></div></div>
-            <div class="ficha-body">
-              <div class="ing-row"><span class="ing-name">Arroz tipo 1</span><span class="ing-qty">80 g</span></div>
-              <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">2 g</span></div>
-              <div class="ing-row"><span class="ing-name">Óleo de soja</span><span class="ing-qty">5 mL</span></div>
-              <div class="divider"></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">40 kg arroz</span></div>
-            </div>
-          </div>
-          <div class="ficha-card">
-            <div class="ficha-header"><div><div class="ficha-title">🫘 Feijão Carioca</div><div class="ficha-meta">500 porções · 180g/un</div></div></div>
-            <div class="ficha-body">
-              <div class="ing-row"><span class="ing-name">Feijão carioca</span><span class="ing-qty">60 g</span></div>
-              <div class="ing-row"><span class="ing-name">Cebola</span><span class="ing-qty">15 g</span></div>
-              <div class="ing-row"><span class="ing-name">Alho</span><span class="ing-qty">3 g</span></div>
-              <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">2 g</span></div>
-              <div class="divider"></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">30 kg feijão</span></div>
-            </div>
-          </div>
-          <div class="ficha-card">
-            <div class="ficha-header"><div><div class="ficha-title">🥚 Omelete</div><div class="ficha-meta">500 porções · 2 ovos/un</div></div></div>
-            <div class="ficha-body">
-              <div class="ing-row"><span class="ing-name">Ovos</span><span class="ing-qty">2 un</span></div>
-              <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">2 g</span></div>
-              <div class="ing-row"><span class="ing-name">Óleo de soja</span><span class="ing-qty">8 mL</span></div>
-              <div class="divider"></div>
-              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">1.000 ovos</span></div>
-            </div>
-          </div>
-          <div class="ficha-card" style="display:flex;align-items:center;justify-content:center;min-height:160px;border:2px dashed var(--cream3);box-shadow:none;cursor:pointer;background:transparent;" onclick="showToast('Nova ficha em breve!','')">
-            <div style="text-align:center;color:var(--text3);"><div style="font-size:30px;margin-bottom:6px;">➕</div><div style="font-size:13px;font-weight:600;">Nova ficha</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- ══════════════ IMPORTAR ══════════════ -->
-    <div id="importar" class="screen">
-      <div class="ph">
-        <div>
-          <div class="ph-title">⬆️ Importar Planilha</div>
-          <div class="ph-sub">Cardápio ou estoque via .xlsx / .csv</div>
+          <div id="week-1" style="display:none;">
+            <div class="days-row">
+              <div class="day-card"><div class="day-name">SEG 02</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
+              <div class="day-card"><div class="day-name">TER 03</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Peixe assado</div><div class="meal-side">Arroz, feijão, purê</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
+              <div class="day-card"><div class="day-name">QUA 04</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango ao forno</div><div class="meal-side">Arroz, feijão, farofa</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Macarrão, salada</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
+              <div class="day-card"><div class="day-name">QUI 05</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, feijão, salada</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango refogado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
+              <div class="day-card"><div class="day-name">SEX 06</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Peixe grelhado</div><div class="meal-side">Arroz, feijão, fruta</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-green" style="font-size:10px;">✅ OK</span></div></div>
+            </div>
+          </div>
+
+          <div id="week-2" style="display:none;">
+            <div class="days-row">
+              <div class="day-card"><div class="day-name">SEG 09</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
+              <div class="day-card"><div class="day-name">TER 10</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, feijão, farofa</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
+              <div class="day-card"><div class="day-name">QUA 11</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Peixe grelhado</div><div class="meal-side">Arroz, feijão, purê</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango refogado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
+              <div class="day-card"><div class="day-name">QUI 12</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango ao forno</div><div class="meal-side">Arroz, feijão, farofa</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne moída</div><div class="meal-side">Macarrão, salada</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
+              <div class="day-card"><div class="day-name">SEX 13</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, feijão, fruta</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-amber" style="font-size:10px;">⚠️ Compra necessária</span></div></div>
+            </div>
+          </div>
+
+          <div id="week-3" style="display:none;">
+            <div class="days-row">
+              <div class="day-card"><div class="day-name">SEG 16</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, feijão, salada</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Omelete</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-red" style="font-size:10px;">🛒 Sem estoque</span></div></div>
+              <div class="day-card"><div class="day-name">TER 17</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, feijão, macarrão</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Peixe grelhado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-red" style="font-size:10px;">🛒 Sem estoque</span></div></div>
+              <div class="day-card"><div class="day-name">QUA 18</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Frango ao forno</div><div class="meal-side">Arroz, feijão, farofa</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Carne assada</div><div class="meal-side">Arroz, salada</div></div><div class="mt8"><span class="badge b-red" style="font-size:10px;">🛒 Sem estoque</span></div></div>
+              <div class="day-card holiday"><div class="day-name holiday-lbl">⛪ QUI 19</div><div class="no-svc">Corpus Christi<br>Sem serviço</div><div class="mt8"><span class="badge b-blue" style="font-size:10px;">Feriado</span></div></div>
+              <div class="day-card"><div class="day-name">SEX 20</div><div class="meal-block"><div class="meal-type">Almoço</div><div class="meal-name">Carne moída</div><div class="meal-side">Arroz, feijão, fruta</div></div><div class="meal-block"><div class="meal-type">Jantar</div><div class="meal-name">Frango grelhado</div><div class="meal-side">Arroz, legumes</div></div><div class="mt8"><span class="badge b-red" style="font-size:10px;">🛒 Sem estoque</span></div></div>
+            </div>
+            <div class="ib danger mt12"><strong>🛒 Semana 4 requer compra urgente</strong>Frango: 45 kg · Óleo: 8 L · Carne: 75 kg. Atenção: qui 19/06 é feriado.</div>
+          </div>
+
+          <div class="card mt16">
+            <div class="st">📦 Demanda estimada — Semana 1</div>
+            <div class="g4">
+              <div>
+                <div class="stat-label">Arroz</div>
+                <div style="font-size:18px;font-weight:700;margin:4px 0;">120 kg</div>
+                <div class="pbar"><div class="pfill green" style="width:85%;"></div></div>
+                <div style="font-size:11px;color:var(--green);margin-top:3px;">Suficiente</div>
+              </div>
+              <div>
+                <div class="stat-label">Frango</div>
+                <div style="font-size:18px;font-weight:700;margin:4px 0;">90 kg</div>
+                <div class="pbar"><div class="pfill amber" style="width:60%;"></div></div>
+                <div style="font-size:11px;color:var(--amber);margin-top:3px;">Parcial (73,5 kg)</div>
+              </div>
+              <div>
+                <div class="stat-label">Feijão</div>
+                <div style="font-size:18px;font-weight:700;margin:4px 0;">85 kg</div>
+                <div class="pbar"><div class="pfill green" style="width:100%;"></div></div>
+                <div style="font-size:11px;color:var(--green);margin-top:3px;">Suficiente</div>
+              </div>
+              <div>
+                <div class="stat-label">Óleo</div>
+                <div style="font-size:18px;font-weight:700;margin:4px 0;">20 L</div>
+                <div class="pbar"><div class="pfill amber" style="width:60%;"></div></div>
+                <div style="font-size:11px;color:var(--amber);margin-top:3px;">Parcial (12 L)</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="pc">
-        <div class="g2" style="margin-bottom:16px;">
+
+      <!-- ══════════ CALENDÁRIO ══════════ -->
+      <div id="calendario" class="screen">
+        <div class="ph">
+          <div>
+            <div class="ph-title">📅 Calendário</div>
+            <div class="ph-sub">Feriados, férias e dias sem serviço</div>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-event')">+ Evento</button>
+          </div>
+        </div>
+        <div class="pc">
+          <div class="g2" style="margin-bottom:16px;">
+            <div class="card">
+              <div class="st">📊 Junho 2025</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;justify-content:space-between;padding:9px 12px;background:var(--cream);border-radius:var(--rsm);font-size:13px;"><span>📅 Dias no mês</span><strong>30</strong></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 12px;background:var(--cream);border-radius:var(--rsm);font-size:13px;"><span>🗓️ Fins de semana</span><strong>10</strong></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 12px;background:#ede9fe;border-radius:var(--rsm);font-size:13px;"><span>⛪ Feriados</span><strong style="color:#4f46e5;">1</strong></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 12px;background:#fce7f3;border-radius:var(--rsm);font-size:13px;"><span>🏖️ Recesso/Férias</span><strong style="color:#9d174d;">0</strong></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 12px;background:#dcfce7;border-radius:var(--rsm);font-size:13px;"><span style="font-weight:700;">✅ Dias úteis com serviço</span><strong style="color:var(--green);font-size:18px;">19</strong></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="st">📋 Eventos</div>
+              <div id="event-list" style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#ede9fe;border-radius:var(--rsm);">
+                  <span>⛪</span>
+                  <div><div style="font-size:13px;font-weight:600;color:#4f46e5;">Corpus Christi</div><div style="font-size:11px;color:#6d28d9;">19/jun/2025 · Feriado</div></div>
+                  <button class="btn btn-xs btn-ghost" style="margin-left:auto;" onclick="removeEvent(this)">✕</button>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fce7f3;border-radius:var(--rsm);">
+                  <span>🏖️</span>
+                  <div><div style="font-size:13px;font-weight:600;color:#9d174d;">Recesso de Julho</div><div style="font-size:11px;color:#be185d;">01–05/jul/2025</div></div>
+                  <button class="btn btn-xs btn-ghost" style="margin-left:auto;" onclick="removeEvent(this)">✕</button>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#fce7f3;border-radius:var(--rsm);">
+                  <span>🎓</span>
+                  <div><div style="font-size:13px;font-weight:600;color:#9d174d;">Férias de Inverno</div><div style="font-size:11px;color:#be185d;">14/jul – 01/ago/2025</div></div>
+                  <button class="btn btn-xs btn-ghost" style="margin-left:auto;" onclick="removeEvent(this)">✕</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="card">
-            <div class="st">🍽️ Importar Cardápio</div>
-            <div class="import-zone" onclick="triggerImport('cardapio')" ondragover="dragOver(event,this)" ondragleave="dragLeave(this)" ondrop="dropFile(event,'cardapio',this)">
-              <input type="file" id="file-cardapio" accept=".xlsx,.csv,.xls" style="display:none" onchange="handleFile(event,'cardapio')">
-              <div style="font-size:36px;margin-bottom:8px;">📅</div>
-              <div style="font-size:14px;font-weight:700;color:var(--text2);margin-bottom:4px;">Arraste ou clique</div>
-              <div style="font-size:12px;color:var(--text3);">.xlsx, .csv, .xls</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+              <div class="st" style="margin-bottom:0;">🗓️ Junho 2025</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <span style="display:flex;align-items:center;gap:4px;font-size:11px;"><span style="width:11px;height:11px;background:#ede9fe;border-radius:3px;display:inline-block;"></span>Feriado</span>
+                <span style="display:flex;align-items:center;gap:4px;font-size:11px;"><span style="width:11px;height:11px;background:#fce7f3;border-radius:3px;display:inline-block;"></span>Férias</span>
+                <span style="display:flex;align-items:center;gap:4px;font-size:11px;"><span style="width:11px;height:11px;background:var(--cream2);border-radius:3px;display:inline-block;"></span>FDS</span>
+                <span style="display:flex;align-items:center;gap:4px;font-size:11px;"><span style="width:11px;height:11px;background:var(--white);border:1px solid var(--cream3);border-radius:3px;display:inline-block;"></span>Útil</span>
+              </div>
             </div>
-            <div class="mt12" style="font-size:12px;color:var(--text3);">Colunas: <strong>data, refeicao, prato_principal, acompanhamento</strong></div>
-            <div style="margin-top:8px;"><button class="btn btn-ghost btn-sm">⬇️ Template</button></div>
+            <div class="cal-header-row">
+              <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ ESTOQUE ══════════ -->
+      <div id="estoque" class="screen">
+        <div class="ph">
+          <div>
+            <div class="ph-title">Estoque</div>
+            <div class="ph-sub">Ordenado por FEFO — First Expire, First Out</div>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm" onclick="openModal('modal-add-item')">+ Item</button>
+          </div>
+        </div>
+        <div class="pc">
+          <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
+            <input type="search" placeholder="🔍 Buscar..." style="padding:10px 12px;border:1.5px solid var(--cream3);border-radius:var(--rsm);font-family:inherit;font-size:14px;flex:1;min-width:120px;outline:none;" oninput="filterEstoque(this.value)">
+            <select style="padding:10px 11px;border:1.5px solid var(--cream3);border-radius:var(--rsm);font-family:inherit;font-size:14px;color:var(--text);background:var(--white);outline:none;-webkit-appearance:none;" onchange="filterByStatus(this.value)">
+              <option value="">Todos</option>
+              <option value="critico">Críticos</option>
+              <option value="atencao">Atenção</option>
+              <option value="ok">OK</option>
+            </select>
           </div>
           <div class="card">
-            <div class="st">📦 Importar Estoque</div>
-            <div class="import-zone" onclick="triggerImport('estoque')" ondragover="dragOver(event,this)" ondragleave="dragLeave(this)" ondrop="dropFile(event,'estoque',this)">
-              <input type="file" id="file-estoque" accept=".xlsx,.csv,.xls" style="display:none" onchange="handleFile(event,'estoque')">
-              <div style="font-size:36px;margin-bottom:8px;">📦</div>
-              <div style="font-size:14px;font-weight:700;color:var(--text2);margin-bottom:4px;">Arraste ou clique</div>
-              <div style="font-size:12px;color:var(--text3);">.xlsx, .csv, .xls</div>
+            <div class="tw">
+              <table id="estoque-table">
+                <thead>
+                  <tr>
+                    <th>Produto</th><th>Lote</th><th>Qtd</th>
+                    <th>Validade</th><th>Dias</th><th>Perda est.</th>
+                    <th>Status</th><th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-status="critico"><td><strong>Frango</strong></td><td><code class="lote">FR-012</code></td><td>28,5 kg</td><td>29/05</td><td><strong style="color:var(--red);">3</strong></td><td><strong style="color:var(--red);">R$ 570</strong></td><td><span class="badge b-red">🔴 CRÍTICO</span></td><td><button class="btn btn-xs btn-ghost">✏️</button></td></tr>
+                  <tr data-status="critico"><td><strong>Óleo de soja</strong></td><td><code class="lote">OL-007</code></td><td>12 L</td><td>31/05</td><td><strong style="color:var(--red);">5</strong></td><td><strong style="color:var(--red);">R$ 96</strong></td><td><span class="badge b-red">🔴 CRÍTICO</span></td><td><button class="btn btn-xs btn-ghost">✏️</button></td></tr>
+                  <tr data-status="critico"><td><strong>Alho</strong></td><td><code class="lote">AL-003</code></td><td>2,2 kg</td><td>01/06</td><td><strong style="color:var(--red);">6</strong></td><td><strong style="color:var(--amber);">R$ 44</strong></td><td><span class="badge b-red">🔴 CRÍTICO</span></td><td><button class="btn btn-xs btn-ghost">✏️</button></td></tr>
+                  <tr data-status="atencao"><td><strong>Cebola</strong></td><td><code class="lote">CE-011</code></td><td>15 kg</td><td>04/06</td><td><strong style="color:var(--amber);">9</strong></td><td style="color:var(--amber);">R$ 60</td><td><span class="badge b-amber">🟡 ATENÇÃO</span></td><td><button class="btn btn-xs btn-ghost">✏️</button></td></tr>
+                  <tr data-status="atencao"><td><strong>Arroz</strong></td><td><code class="lote">AR-019</code></td><td>120 kg</td><td>07/06</td><td><strong style="color:var(--amber);">12</strong></td><td style="color:var(--amber);">R$ 360</td><td><span class="badge b-amber">🟡 ATENÇÃO</span></td><td><button class="btn btn-xs btn-ghost">✏️</button></td></tr>
+                  <tr data-status="atencao"><td><strong>Frango</strong></td><td><code class="lote">FR-013</code></td><td>45 kg</td><td>10/06</td><td><strong style="color:var(--amber);">15</strong></td><td style="color:var(--amber);">R$ 900</td><td><span class="badge b-amber">🟡 ATENÇÃO</span></td><td><button class="btn btn-xs btn-ghost">✏️</button></td></tr>
+                  <tr data-status="ok"><td><strong>Feijão</strong></td><td><code class="lote">FJ-004</code></td><td>85 kg</td><td>15/07</td><td><strong style="color:var(--green);">50</strong></td><td style="color:var(--green);">—</td><td><span class="badge b-green">🟢 OK</span></td><td><button class="btn btn-xs btn-ghost">✏️</button></td></tr>
+                  <tr data-status="ok"><td><strong>Sal</strong></td><td><code class="lote">SA-001</code></td><td>8 kg</td><td>01/01/26</td><td><strong style="color:var(--green);">220</strong></td><td style="color:var(--green);">—</td><td><span class="badge b-green">🟢 OK</span></td><td><button class="btn btn-xs btn-ghost">✏️</button></td></tr>
+                </tbody>
+              </table>
             </div>
-            <div class="mt12" style="font-size:12px;color:var(--text3);">Colunas: <strong>produto, lote, quantidade, unidade, validade, categoria, valor_unit</strong></div>
-            <div style="margin-top:8px;"><button class="btn btn-ghost btn-sm">⬇️ Template</button></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="st">📋 Histórico de importações</div>
-          <div class="tw">
-            <table>
-              <thead><tr><th>Data</th><th>Tipo</th><th>Arquivo</th><th>Status</th></tr></thead>
-              <tbody id="import-history">
-                <tr><td>25/05 14:32</td><td>Cardápio</td><td>cardapio_maio.xlsx</td><td><span class="badge b-green">✅ OK</span></td></tr>
-                <tr><td>20/05 09:15</td><td>Estoque</td><td>estoque_semana3.csv</td><td><span class="badge b-green">✅ OK</span></td></tr>
-                <tr><td>15/05 16:48</td><td>Cardápio</td><td>cardapio_quinzena.xlsx</td><td><span class="badge b-amber">⚠️ 2 erros</span></td></tr>
-              </tbody>
-            </table>
+            <div class="mt12" style="padding:11px 14px;background:#FEF2F2;border-radius:var(--rsm);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+              <span style="font-size:13px;color:#991b1b;font-weight:600;">💸 Prejuízo potencial total:</span>
+              <strong style="font-size:18px;color:#991b1b;">R$ 2.030</strong>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ══════════════ RELATÓRIOS ══════════════ -->
-    <div id="relatorios" class="screen">
-      <div class="ph">
-        <div>
-          <div class="ph-title">Relatórios</div>
-          <div class="ph-sub">Demanda · Validade · Dias Úteis · Cardápio</div>
+      <!-- ══════════ FICHAS TÉCNICAS ══════════ -->
+      <div id="fichas" class="screen">
+        <div class="ph">
+          <div>
+            <div class="ph-title">Fichas Técnicas</div>
+            <div class="ph-sub">Ingredientes por porção · 500 refeições</div>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-primary btn-sm" onclick="showToast('Em breve!','')">+ Nova ficha</button>
+          </div>
         </div>
-        <div class="ph-actions">
-          <button class="btn btn-outline btn-sm">⬇️ PDF</button>
+        <div class="pc">
+          <div class="g3">
+            <div class="ficha-card">
+              <div class="ficha-header"><div><div class="ficha-title">🍗 Frango Grelhado</div><div class="ficha-meta">500 porções · 180g/un</div></div></div>
+              <div class="ficha-body">
+                <div class="ing-row"><span class="ing-name">Frango filé</span><span class="ing-qty">180 g</span></div>
+                <div class="ing-row"><span class="ing-name">Alho</span><span class="ing-qty">5 g</span></div>
+                <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">3 g</span></div>
+                <div class="ing-row"><span class="ing-name">Óleo de soja</span><span class="ing-qty">15 mL</span></div>
+                <div class="divider"></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">90 kg frango</span></div>
+              </div>
+            </div>
+            <div class="ficha-card">
+              <div class="ficha-header"><div><div class="ficha-title">🥩 Carne Moída</div><div class="ficha-meta">500 porções · 150g/un</div></div></div>
+              <div class="ficha-body">
+                <div class="ing-row"><span class="ing-name">Carne bovina moída</span><span class="ing-qty">150 g</span></div>
+                <div class="ing-row"><span class="ing-name">Cebola</span><span class="ing-qty">20 g</span></div>
+                <div class="ing-row"><span class="ing-name">Alho</span><span class="ing-qty">4 g</span></div>
+                <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">3 g</span></div>
+                <div class="ing-row"><span class="ing-name">Óleo de soja</span><span class="ing-qty">10 mL</span></div>
+                <div class="divider"></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">75 kg carne</span></div>
+              </div>
+            </div>
+            <div class="ficha-card">
+              <div class="ficha-header"><div><div class="ficha-title">🍚 Arroz Branco</div><div class="ficha-meta">500 porções · 200g/un</div></div></div>
+              <div class="ficha-body">
+                <div class="ing-row"><span class="ing-name">Arroz tipo 1</span><span class="ing-qty">80 g</span></div>
+                <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">2 g</span></div>
+                <div class="ing-row"><span class="ing-name">Óleo de soja</span><span class="ing-qty">5 mL</span></div>
+                <div class="divider"></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">40 kg arroz</span></div>
+              </div>
+            </div>
+            <div class="ficha-card">
+              <div class="ficha-header"><div><div class="ficha-title">🫘 Feijão Carioca</div><div class="ficha-meta">500 porções · 180g/un</div></div></div>
+              <div class="ficha-body">
+                <div class="ing-row"><span class="ing-name">Feijão carioca</span><span class="ing-qty">60 g</span></div>
+                <div class="ing-row"><span class="ing-name">Cebola</span><span class="ing-qty">15 g</span></div>
+                <div class="ing-row"><span class="ing-name">Alho</span><span class="ing-qty">3 g</span></div>
+                <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">2 g</span></div>
+                <div class="divider"></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">30 kg feijão</span></div>
+              </div>
+            </div>
+            <div class="ficha-card">
+              <div class="ficha-header"><div><div class="ficha-title">🥚 Omelete</div><div class="ficha-meta">500 porções · 2 ovos/un</div></div></div>
+              <div class="ficha-body">
+                <div class="ing-row"><span class="ing-name">Ovos</span><span class="ing-qty">2 un</span></div>
+                <div class="ing-row"><span class="ing-name">Sal</span><span class="ing-qty">2 g</span></div>
+                <div class="ing-row"><span class="ing-name">Óleo de soja</span><span class="ing-qty">8 mL</span></div>
+                <div class="divider"></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);"><span>Total:</span><span style="font-weight:700;color:var(--wine);">1.000 ovos</span></div>
+              </div>
+            </div>
+            <div class="ficha-card" style="display:flex;align-items:center;justify-content:center;min-height:160px;border:2px dashed var(--cream3);box-shadow:none;cursor:pointer;background:transparent;" onclick="showToast('Nova ficha em breve!','')">
+              <div style="text-align:center;color:var(--text3);"><div style="font-size:30px;margin-bottom:6px;">➕</div><div style="font-size:13px;font-weight:600;">Nova ficha</div></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="pc">
-        <div class="tabs">
-          <div class="tab active" onclick="showReport('demanda',this)">🛒 Demanda</div>
-          <div class="tab" onclick="showReport('validade',this)">⏰ Validade</div>
-          <div class="tab" onclick="showReport('diasuteis',this)">📅 Dias Úteis</div>
-          <div class="tab" onclick="showReport('alunos',this)">📄 Alunos</div>
-        </div>
 
-        <div id="report-demanda">
+      <!-- ══════════ IMPORTAR ══════════ -->
+      <div id="importar" class="screen">
+        <div class="ph">
+          <div>
+            <div class="ph-title">⬆️ Importar Planilha</div>
+            <div class="ph-sub">Cardápio ou estoque via .xlsx / .csv</div>
+          </div>
+        </div>
+        <div class="pc">
+          <div class="g2" style="margin-bottom:16px;">
+            <div class="card">
+              <div class="st">🍽️ Importar Cardápio</div>
+              <div class="import-zone" onclick="triggerImport('cardapio')" ondragover="dragOver(event,this)" ondragleave="dragLeave(this)" ondrop="dropFile(event,'cardapio',this)">
+                <input type="file" id="file-cardapio" accept=".xlsx,.csv,.xls" style="display:none" onchange="handleFile(event,'cardapio')">
+                <div style="font-size:36px;margin-bottom:8px;">📅</div>
+                <div style="font-size:14px;font-weight:700;color:var(--text2);margin-bottom:4px;">Arraste ou clique</div>
+                <div style="font-size:12px;color:var(--text3);">.xlsx, .csv, .xls</div>
+              </div>
+              <div class="mt12" style="font-size:12px;color:var(--text3);">Colunas: <strong>data, refeicao, prato_principal, acompanhamento</strong></div>
+              <div style="margin-top:8px;"><button class="btn btn-ghost btn-sm">⬇️ Template</button></div>
+            </div>
+            <div class="card">
+              <div class="st">📦 Importar Estoque</div>
+              <div class="import-zone" onclick="triggerImport('estoque')" ondragover="dragOver(event,this)" ondragleave="dragLeave(this)" ondrop="dropFile(event,'estoque',this)">
+                <input type="file" id="file-estoque" accept=".xlsx,.csv,.xls" style="display:none" onchange="handleFile(event,'estoque')">
+                <div style="font-size:36px;margin-bottom:8px;">📦</div>
+                <div style="font-size:14px;font-weight:700;color:var(--text2);margin-bottom:4px;">Arraste ou clique</div>
+                <div style="font-size:12px;color:var(--text3);">.xlsx, .csv, .xls</div>
+              </div>
+              <div class="mt12" style="font-size:12px;color:var(--text3);">Colunas: <strong>produto, lote, quantidade, unidade, validade, categoria, valor_unit</strong></div>
+              <div style="margin-top:8px;"><button class="btn btn-ghost btn-sm">⬇️ Template</button></div>
+            </div>
+          </div>
           <div class="card">
-            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;padding-bottom:10px;border-bottom:2px solid var(--cream3);">📋 Demanda de Compra — Mai/Jun 2025</div>
-            <div style="font-size:12px;color:var(--text3);margin-bottom:14px;">500 refeições/dia · 19 dias úteis em junho</div>
+            <div class="st">📋 Histórico de importações</div>
             <div class="tw">
               <table>
-                <thead><tr><th>Produto</th><th>Necessário</th><th>Estoque</th><th>Comprar</th><th>Período</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>Frango</strong></td><td>360 kg</td><td>73,5 kg</td><td><strong style="color:var(--red);">286,5 kg</strong></td><td>26/05–20/06</td></tr>
-                  <tr><td><strong>Arroz</strong></td><td>480 kg</td><td>120 kg</td><td><strong style="color:var(--amber);">360 kg</strong></td><td>26/05–20/06</td></tr>
-                  <tr><td><strong>Feijão</strong></td><td>240 kg</td><td>85 kg</td><td><strong style="color:var(--amber);">155 kg</strong></td><td>26/05–20/06</td></tr>
-                  <tr><td><strong>Óleo de soja</strong></td><td>80 L</td><td>12 L</td><td><strong style="color:var(--red);">68 L</strong></td><td>26/05–20/06</td></tr>
-                  <tr><td><strong>Carne bovina</strong></td><td>150 kg</td><td>0 kg</td><td><strong style="color:var(--red);">150 kg</strong></td><td>Sem 2–3</td></tr>
+                <thead><tr><th>Data</th><th>Tipo</th><th>Arquivo</th><th>Status</th></tr></thead>
+                <tbody id="import-history">
+                  <tr><td>25/05 14:32</td><td>Cardápio</td><td>cardapio_maio.xlsx</td><td><span class="badge b-green">✅ OK</span></td></tr>
+                  <tr><td>20/05 09:15</td><td>Estoque</td><td>estoque_semana3.csv</td><td><span class="badge b-green">✅ OK</span></td></tr>
+                  <tr><td>15/05 16:48</td><td>Cardápio</td><td>cardapio_quinzena.xlsx</td><td><span class="badge b-amber">⚠️ 2 erros</span></td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
+      </div>
 
-        <div id="report-validade" style="display:none;">
-          <div class="card">
-            <div style="font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--cream3);">⏰ Validade por Criticidade</div>
-            <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:8px;">🔴 CRÍTICO — até 7 dias</div>
-            <div class="tw">
-              <table>
-                <thead><tr><th>Produto</th><th>Lote</th><th>Qtd</th><th>Validade</th><th>Dias</th><th>Perda</th></tr></thead>
-                <tbody>
-                  <tr><td>Frango</td><td>FR-012</td><td>28,5 kg</td><td>29/05</td><td style="color:var(--red);font-weight:700;">3</td><td>R$ 570</td></tr>
-                  <tr><td>Óleo de soja</td><td>OL-007</td><td>12 L</td><td>31/05</td><td style="color:var(--red);font-weight:700;">5</td><td>R$ 96</td></tr>
-                  <tr><td>Alho</td><td>AL-003</td><td>2,2 kg</td><td>01/06</td><td style="color:var(--red);font-weight:700;">6</td><td>R$ 44</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div style="font-size:12px;font-weight:700;color:var(--amber);margin:14px 0 8px;">🟡 ATENÇÃO — 8 a 15 dias</div>
-            <div class="tw">
-              <table>
-                <thead><tr><th>Produto</th><th>Lote</th><th>Qtd</th><th>Validade</th><th>Dias</th><th>Perda pot.</th></tr></thead>
-                <tbody>
-                  <tr><td>Cebola</td><td>CE-011</td><td>15 kg</td><td>04/06</td><td style="color:var(--amber);font-weight:700;">9</td><td>R$ 60</td></tr>
-                  <tr><td>Arroz</td><td>AR-019</td><td>120 kg</td><td>07/06</td><td style="color:var(--amber);font-weight:700;">12</td><td>R$ 360</td></tr>
-                  <tr><td>Frango</td><td>FR-013</td><td>45 kg</td><td>10/06</td><td style="color:var(--amber);font-weight:700;">15</td><td>R$ 900</td></tr>
-                </tbody>
-              </table>
-            </div>
+      <!-- ══════════ RELATÓRIOS ══════════ -->
+      <div id="relatorios" class="screen">
+        <div class="ph">
+          <div>
+            <div class="ph-title">Relatórios</div>
+            <div class="ph-sub">Demanda · Validade · Dias Úteis · Cardápio</div>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm">⬇️ PDF</button>
           </div>
         </div>
-
-        <div id="report-diasuteis" style="display:none;">
-          <div class="card">
-            <div style="font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--cream3);">📅 Dias Úteis com Serviço — Mai–Jul 2025</div>
-            <div class="tw">
-              <table>
-                <thead><tr><th>Mês</th><th>FDS</th><th>Feriados</th><th>Férias</th><th>Dias úteis</th><th>Refeições</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>Maio 2025</strong></td><td>10</td><td>1</td><td>0</td><td><strong style="color:var(--green);">20</strong></td><td>20.000</td></tr>
-                  <tr><td><strong>Junho 2025</strong></td><td>10</td><td>1</td><td>0</td><td><strong style="color:var(--green);">19</strong></td><td>19.000</td></tr>
-                  <tr><td><strong>Julho 2025</strong></td><td>10</td><td>1</td><td>19</td><td><strong style="color:var(--amber);">1</strong></td><td>500</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="ib warn mt12"><strong>⚠️ Julho tem apenas 1 dia útil (07/jul)</strong>Planeje compras considerando o recesso prolongado.</div>
+        <div class="pc">
+          <div class="tabs">
+            <div class="tab active" onclick="showReport('demanda',this)">🛒 Demanda</div>
+            <div class="tab" onclick="showReport('validade',this)">⏰ Validade</div>
+            <div class="tab" onclick="showReport('diasuteis',this)">📅 Dias Úteis</div>
+            <div class="tab" onclick="showReport('alunos',this)">📄 Alunos</div>
           </div>
-        </div>
 
-        <div id="report-alunos" style="display:none;">
-          <div class="card">
-            <div style="font-size:14px;font-weight:700;margin-bottom:4px;padding-bottom:10px;border-bottom:2px solid var(--cream3);">📄 Cardápio Semanal — Para os Alunos</div>
-            <div style="font-size:12px;color:var(--text3);margin-bottom:14px;">Semana de 26 a 30 de maio de 2025</div>
-            <div class="tw">
-              <table>
-                <thead><tr><th>Dia</th><th>Refeição</th><th>Prato Principal</th><th>Acompanhamento</th></tr></thead>
-                <tbody>
-                  <tr><td rowspan="2"><strong>Seg 26/05</strong></td><td>Almoço</td><td>Frango grelhado</td><td>Arroz, feijão, salada</td></tr>
-                  <tr><td>Jantar</td><td>Omelete</td><td>Arroz, salada</td></tr>
-                  <tr style="background:var(--cream);"><td rowspan="2"><strong>Ter 27/05</strong></td><td>Almoço</td><td>Carne moída</td><td>Arroz, feijão, macarrão</td></tr>
-                  <tr style="background:var(--cream);"><td>Jantar</td><td>Frango refogado</td><td>Arroz, legumes</td></tr>
-                  <tr><td rowspan="2"><strong>Qua 28/05</strong></td><td>Almoço</td><td>Peixe grelhado</td><td>Arroz, feijão, purê</td></tr>
-                  <tr><td>Jantar</td><td>Carne moída</td><td>Macarrão, salada</td></tr>
-                  <tr style="background:var(--cream);"><td rowspan="2"><strong>Qui 29/05</strong></td><td>Almoço</td><td>Frango grelhado</td><td>Arroz, feijão, salada</td></tr>
-                  <tr style="background:var(--cream);"><td>Jantar</td><td>Omelete</td><td>Arroz, salada verde</td></tr>
-                  <tr><td rowspan="2"><strong>Sex 30/05</strong></td><td>Almoço</td><td>Carne assada</td><td>Arroz, feijão, farofa</td></tr>
-                  <tr><td>Jantar</td><td>Frango grelhado</td><td>Arroz, legumes</td></tr>
-                </tbody>
-              </table>
+          <div id="report-demanda">
+            <div class="card">
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;padding-bottom:10px;border-bottom:2px solid var(--cream3);">📋 Demanda de Compra — Mai/Jun 2025</div>
+              <div style="font-size:12px;color:var(--text3);margin-bottom:14px;">500 refeições/dia · 19 dias úteis em junho</div>
+              <div class="tw">
+                <table>
+                  <thead><tr><th>Produto</th><th>Necessário</th><th>Estoque</th><th>Comprar</th><th>Período</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Frango</strong></td><td>360 kg</td><td>73,5 kg</td><td><strong style="color:var(--red);">286,5 kg</strong></td><td>26/05–20/06</td></tr>
+                    <tr><td><strong>Arroz</strong></td><td>480 kg</td><td>120 kg</td><td><strong style="color:var(--amber);">360 kg</strong></td><td>26/05–20/06</td></tr>
+                    <tr><td><strong>Feijão</strong></td><td>240 kg</td><td>85 kg</td><td><strong style="color:var(--amber);">155 kg</strong></td><td>26/05–20/06</td></tr>
+                    <tr><td><strong>Óleo de soja</strong></td><td>80 L</td><td>12 L</td><td><strong style="color:var(--red);">68 L</strong></td><td>26/05–20/06</td></tr>
+                    <tr><td><strong>Carne bovina</strong></td><td>150 kg</td><td>0 kg</td><td><strong style="color:var(--red);">150 kg</strong></td><td>Sem 2–3</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div style="margin-top:10px;font-size:12px;color:var(--text3);">* Sujeito a alterações · Almoço: 11h–14h · Jantar: 18h–20h</div>
+          </div>
+
+          <div id="report-validade" style="display:none;">
+            <div class="card">
+              <div style="font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--cream3);">⏰ Validade por Criticidade</div>
+              <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:8px;">🔴 CRÍTICO — até 7 dias</div>
+              <div class="tw">
+                <table>
+                  <thead><tr><th>Produto</th><th>Lote</th><th>Qtd</th><th>Validade</th><th>Dias</th><th>Perda</th></tr></thead>
+                  <tbody>
+                    <tr><td>Frango</td><td>FR-012</td><td>28,5 kg</td><td>29/05</td><td style="color:var(--red);font-weight:700;">3</td><td>R$ 570</td></tr>
+                    <tr><td>Óleo de soja</td><td>OL-007</td><td>12 L</td><td>31/05</td><td style="color:var(--red);font-weight:700;">5</td><td>R$ 96</td></tr>
+                    <tr><td>Alho</td><td>AL-003</td><td>2,2 kg</td><td>01/06</td><td style="color:var(--red);font-weight:700;">6</td><td>R$ 44</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:var(--amber);margin:14px 0 8px;">🟡 ATENÇÃO — 8 a 15 dias</div>
+              <div class="tw">
+                <table>
+                  <thead><tr><th>Produto</th><th>Lote</th><th>Qtd</th><th>Validade</th><th>Dias</th><th>Perda pot.</th></tr></thead>
+                  <tbody>
+                    <tr><td>Cebola</td><td>CE-011</td><td>15 kg</td><td>04/06</td><td style="color:var(--amber);font-weight:700;">9</td><td>R$ 60</td></tr>
+                    <tr><td>Arroz</td><td>AR-019</td><td>120 kg</td><td>07/06</td><td style="color:var(--amber);font-weight:700;">12</td><td>R$ 360</td></tr>
+                    <tr><td>Frango</td><td>FR-013</td><td>45 kg</td><td>10/06</td><td style="color:var(--amber);font-weight:700;">15</td><td>R$ 900</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div id="report-diasuteis" style="display:none;">
+            <div class="card">
+              <div style="font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--cream3);">📅 Dias Úteis com Serviço — Mai–Jul 2025</div>
+              <div class="tw">
+                <table>
+                  <thead><tr><th>Mês</th><th>FDS</th><th>Feriados</th><th>Férias</th><th>Dias úteis</th><th>Refeições</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Maio 2025</strong></td><td>10</td><td>1</td><td>0</td><td><strong style="color:var(--green);">20</strong></td><td>20.000</td></tr>
+                    <tr><td><strong>Junho 2025</strong></td><td>10</td><td>1</td><td>0</td><td><strong style="color:var(--green);">19</strong></td><td>19.000</td></tr>
+                    <tr><td><strong>Julho 2025</strong></td><td>10</td><td>1</td><td>19</td><td><strong style="color:var(--amber);">1</strong></td><td>500</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="ib warn mt12"><strong>⚠️ Julho tem apenas 1 dia útil (07/jul)</strong>Planeje compras considerando o recesso prolongado.</div>
+            </div>
+          </div>
+
+          <div id="report-alunos" style="display:none;">
+            <div class="card">
+              <div style="font-size:14px;font-weight:700;margin-bottom:4px;padding-bottom:10px;border-bottom:2px solid var(--cream3);">📄 Cardápio Semanal — Para os Alunos</div>
+              <div style="font-size:12px;color:var(--text3);margin-bottom:14px;">Semana de 26 a 30 de maio de 2025</div>
+              <div class="tw">
+                <table>
+                  <thead><tr><th>Dia</th><th>Refeição</th><th>Prato Principal</th><th>Acompanhamento</th></tr></thead>
+                  <tbody>
+                    <tr><td rowspan="2"><strong>Seg 26/05</strong></td><td>Almoço</td><td>Frango grelhado</td><td>Arroz, feijão, salada</td></tr>
+                    <tr><td>Jantar</td><td>Omelete</td><td>Arroz, salada</td></tr>
+                    <tr style="background:var(--cream);"><td rowspan="2"><strong>Ter 27/05</strong></td><td>Almoço</td><td>Carne moída</td><td>Arroz, feijão, macarrão</td></tr>
+                    <tr style="background:var(--cream);"><td>Jantar</td><td>Frango refogado</td><td>Arroz, legumes</td></tr>
+                    <tr><td rowspan="2"><strong>Qua 28/05</strong></td><td>Almoço</td><td>Peixe grelhado</td><td>Arroz, feijão, purê</td></tr>
+                    <tr><td>Jantar</td><td>Carne moída</td><td>Macarrão, salada</td></tr>
+                    <tr style="background:var(--cream);"><td rowspan="2"><strong>Qui 29/05</strong></td><td>Almoço</td><td>Frango grelhado</td><td>Arroz, feijão, salada</td></tr>
+                    <tr style="background:var(--cream);"><td>Jantar</td><td>Omelete</td><td>Arroz, salada verde</td></tr>
+                    <tr><td rowspan="2"><strong>Sex 30/05</strong></td><td>Almoço</td><td>Carne assada</td><td>Arroz, feijão, farofa</td></tr>
+                    <tr><td>Jantar</td><td>Frango grelhado</td><td>Arroz, legumes</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="margin-top:10px;font-size:12px;color:var(--text3);">* Sujeito a alterações · Almoço: 11h–14h · Jantar: 18h–20h</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </main>
-</div>
+    </div><!-- /content-area -->
+  </div><!-- /main -->
+</div><!-- /app -->
 
-<!-- MODAIS -->
-<!-- Modal: Novo item estoque -->
+<!-- ══ MODAIS ══ -->
 <div class="modal-overlay" id="modal-add-item">
   <div class="modal">
+    <div class="modal-handle"></div>
     <div class="modal-header"><span class="modal-title">📦 Novo Item no Estoque</span><button class="modal-close" onclick="closeModal('modal-add-item')">✕</button></div>
     <div class="modal-body">
       <div class="form-row">
@@ -1100,7 +1216,7 @@
         <div class="form-group"><label>Data de validade</label><input type="date"></div>
         <div class="form-group"><label>Valor unitário (R$)</label><input type="number" placeholder="0,00" step="0.01"></div>
       </div>
-      <div class="form-group form-full" style="margin-top:4px;">
+      <div class="form-group" style="margin-top:4px;">
         <label>Categoria</label>
         <div class="chip-group" id="cat-chips">
           <div class="chip" onclick="selectChip(this,'cat-chips')">🥩 Carne</div>
@@ -1112,49 +1228,50 @@
         </div>
       </div>
     </div>
-    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('modal-add-item')">Cancelar</button><button class="btn btn-primary" onclick="saveItem()">Salvar</button></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-add-item')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveItem()">Salvar</button>
+    </div>
   </div>
 </div>
 
-<!-- Modal: Adicionar prato -->
 <div class="modal-overlay" id="modal-add-prato">
   <div class="modal">
+    <div class="modal-handle"></div>
     <div class="modal-header"><span class="modal-title">🍽️ Novo Prato no Cardápio</span><button class="modal-close" onclick="closeModal('modal-add-prato')">✕</button></div>
     <div class="modal-body">
       <div class="form-row">
         <div class="form-group"><label>Data</label><input type="date" id="prato-data"></div>
         <div class="form-group"><label>Refeição</label><select id="prato-refeicao"><option>Almoço</option><option>Jantar</option></select></div>
       </div>
-      <div class="form-row">
-        <div class="form-group form-full"><label>Prato Principal</label>
-          <select id="prato-principal">
-            <option>Frango grelhado</option>
-            <option>Frango refogado</option>
-            <option>Frango ao forno</option>
-            <option>Carne moída</option>
-            <option>Carne assada</option>
-            <option>Peixe grelhado</option>
-            <option>Omelete</option>
-          </select>
-        </div>
+      <div class="form-group">
+        <label>Prato Principal</label>
+        <select id="prato-principal">
+          <option>Frango grelhado</option><option>Frango refogado</option><option>Frango ao forno</option>
+          <option>Carne moída</option><option>Carne assada</option><option>Peixe grelhado</option><option>Omelete</option>
+        </select>
       </div>
-      <div class="form-group form-full"><label>Acompanhamento</label><input type="text" id="prato-acomp" placeholder="Ex: Arroz, feijão, salada"></div>
+      <div class="form-group"><label>Acompanhamento</label><input type="text" id="prato-acomp" placeholder="Ex: Arroz, feijão, salada"></div>
     </div>
-    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('modal-add-prato')">Cancelar</button><button class="btn btn-primary" onclick="savePrato()">Salvar</button></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-add-prato')">Cancelar</button>
+      <button class="btn btn-primary" onclick="savePrato()">Salvar</button>
+    </div>
   </div>
 </div>
 
-<!-- Modal: Adicionar evento calendário -->
 <div class="modal-overlay" id="modal-add-event">
   <div class="modal">
+    <div class="modal-handle"></div>
     <div class="modal-header"><span class="modal-title">📅 Novo Evento</span><button class="modal-close" onclick="closeModal('modal-add-event')">✕</button></div>
     <div class="modal-body">
-      <div class="form-group form-full" style="margin-bottom:10px;"><label>Nome do evento</label><input type="text" id="event-name" placeholder="Ex: Carnaval, Recesso..."></div>
+      <div class="form-group"><label>Nome do evento</label><input type="text" id="event-name" placeholder="Ex: Carnaval, Recesso..."></div>
       <div class="form-row">
         <div class="form-group"><label>Data início</label><input type="date" id="event-start"></div>
         <div class="form-group"><label>Data fim (opcional)</label><input type="date" id="event-end"></div>
       </div>
-      <div class="form-group form-full" style="margin-top:4px;"><label>Tipo</label>
+      <div class="form-group" style="margin-top:4px;">
+        <label>Tipo</label>
         <div class="chip-group" id="event-type-chips">
           <div class="chip selected" onclick="selectChip(this,'event-type-chips')">⛪ Feriado</div>
           <div class="chip" onclick="selectChip(this,'event-type-chips')">🏖️ Férias</div>
@@ -1163,7 +1280,10 @@
         </div>
       </div>
     </div>
-    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('modal-add-event')">Cancelar</button><button class="btn btn-primary" onclick="saveEvent()">Salvar</button></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-add-event')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveEvent()">Salvar</button>
+    </div>
   </div>
 </div>
 
@@ -1175,153 +1295,195 @@
 document.getElementById('dash-sub').textContent = 'Segunda-feira, 26 de maio de 2025';
 
 // ── SIDEBAR ──
-function toggleSidebar(){
-  const sb=document.getElementById('sidebar'),ov=document.getElementById('overlay');
-  sb.classList.toggle('open');ov.classList.toggle('open');
-}
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('overlay').classList.remove('open');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const menuBtn = document.getElementById('menu-btn');
+
+function openSidebar() {
+  sidebar.classList.add('open');
+  overlay.style.display = 'block';
+  // force reflow then opacity
+  requestAnimationFrame(() => overlay.classList.add('open'));
+  menuBtn.textContent = '✕';
+  document.body.style.overflow = 'hidden';
 }
 
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+  menuBtn.textContent = '☰';
+  document.body.style.overflow = '';
+  // hide overlay after animation
+  setTimeout(() => { overlay.style.display = 'none'; }, 260);
+}
+
+function toggleSidebar() {
+  sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+}
+
+menuBtn.addEventListener('click', toggleSidebar);
+overlay.addEventListener('click', closeSidebar);
+
+// Hide overlay initially
+overlay.style.display = 'none';
+
 // ── NAVIGATION ──
-function show(id,navEl){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+function show(id, navEl) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  if(navEl){navEl.classList.add('active');}
-  else{
-    document.querySelectorAll('.nav-item').forEach(n=>{
-      const oc=n.getAttribute('onclick')||'';
-      if(oc.includes("'"+id+"'")){n.classList.add('active');}
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  if (navEl) {
+    navEl.classList.add('active');
+  } else {
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if ((n.getAttribute('onclick') || '').includes("'" + id + "'")) {
+        n.classList.add('active');
+      }
     });
   }
+
   closeSidebar();
-  document.getElementById('mainContent').scrollTo(0,0);
+  document.getElementById('contentArea').scrollTo(0, 0);
 }
 
 // ── WEEKS ──
-function showWeek(n,el){
-  [0,1,2,3].forEach(i=>{
-    const w=document.getElementById('week-'+i);
-    if(w)w.style.display=i===n?'block':'none';
+function showWeek(n, el) {
+  [0, 1, 2, 3].forEach(i => {
+    const w = document.getElementById('week-' + i);
+    if (w) w.style.display = i === n ? 'block' : 'none';
   });
-  document.querySelectorAll('#cardapio-tabs .tab').forEach(t=>t.classList.remove('active'));
-  if(el)el.classList.add('active');
+  document.querySelectorAll('#cardapio-tabs .tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
 }
 
 // ── REPORTS ──
-function showReport(type,el){
-  ['demanda','validade','diasuteis','alunos'].forEach(t=>{
-    const e=document.getElementById('report-'+t);
-    if(e)e.style.display=t===type?'block':'none';
+function showReport(type, el) {
+  ['demanda', 'validade', 'diasuteis', 'alunos'].forEach(t => {
+    const e = document.getElementById('report-' + t);
+    if (e) e.style.display = t === type ? 'block' : 'none';
   });
-  document.querySelectorAll('#relatorios .tab').forEach(t=>t.classList.remove('active'));
-  if(el)el.classList.add('active');
+  document.querySelectorAll('#relatorios .tabs .tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
 }
 
 // ── MODALS ──
-function openModal(id){document.getElementById(id).classList.add('open');}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-document.querySelectorAll('.modal-overlay').forEach(ov=>{
-  ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open');});
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.querySelectorAll('.modal-overlay').forEach(ov => {
+  ov.addEventListener('click', e => { if (e.target === ov) ov.classList.remove('open'); });
 });
 
 // ── TOAST ──
 let toastTimer;
-function showToast(msg,type=''){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast show '+(type||'');
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
 // ── CHIPS ──
-function selectChip(el,groupId){
-  document.querySelectorAll('#'+groupId+' .chip').forEach(c=>c.classList.remove('selected'));
+function selectChip(el, groupId) {
+  document.querySelectorAll('#' + groupId + ' .chip').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
 }
 
 // ── SAVE ──
-function saveItem(){closeModal('modal-add-item');showToast('Item adicionado!','success');}
-function savePrato(){closeModal('modal-add-prato');showToast('Prato adicionado ao cardápio!','success');}
-function adicionarCardapio(nome){showToast('"'+nome+'" adicionado ao cardápio!','success');}
+function saveItem() { closeModal('modal-add-item'); showToast('Item adicionado!', 'success'); }
+function savePrato() { closeModal('modal-add-prato'); showToast('Prato adicionado ao cardápio!', 'success'); }
+function adicionarCardapio(nome) { showToast('"' + nome + '" adicionado ao cardápio!', 'success'); }
 
-function saveEvent(){
-  const name=document.getElementById('event-name').value;
-  const start=document.getElementById('event-start').value;
-  const end=document.getElementById('event-end').value;
-  const typeEl=document.querySelector('#event-type-chips .chip.selected');
-  const type=typeEl?typeEl.textContent.trim():'📅 Evento';
-  if(!name||!start){showToast('Preencha nome e data','error');return;}
-  const isFeriado=type.includes('Feriado');
-  const bg=isFeriado?'#ede9fe':'#fce7f3';
-  const tc=isFeriado?'#4f46e5':'#9d174d';
-  const period=end&&end!==start?start.split('-').reverse().join('/')+'–'+end.split('-').reverse().join('/'):start.split('-').reverse().join('/');
-  const div=document.createElement('div');
-  div.style.cssText=`display:flex;align-items:center;gap:10px;padding:10px 12px;background:${bg};border-radius:var(--rsm);`;
-  div.innerHTML=`<span>${type.split(' ')[0]}</span><div><div style="font-size:13px;font-weight:600;color:${tc};">${name}</div><div style="font-size:11px;color:${tc};opacity:.8;">${period} · ${type}</div></div><button class="btn btn-xs btn-ghost" style="margin-left:auto;" onclick="removeEvent(this)">✕</button>`;
+function saveEvent() {
+  const name = document.getElementById('event-name').value;
+  const start = document.getElementById('event-start').value;
+  const end = document.getElementById('event-end').value;
+  const typeEl = document.querySelector('#event-type-chips .chip.selected');
+  const type = typeEl ? typeEl.textContent.trim() : '📅 Evento';
+  if (!name || !start) { showToast('Preencha nome e data', 'error'); return; }
+  const isFeriado = type.includes('Feriado');
+  const bg = isFeriado ? '#ede9fe' : '#fce7f3';
+  const tc = isFeriado ? '#4f46e5' : '#9d174d';
+  const fmt = d => d.split('-').reverse().join('/');
+  const period = end && end !== start ? fmt(start) + '–' + fmt(end) : fmt(start);
+  const div = document.createElement('div');
+  div.style.cssText = `display:flex;align-items:center;gap:10px;padding:10px 12px;background:${bg};border-radius:var(--rsm);`;
+  div.innerHTML = `<span>${type.split(' ')[0]}</span><div><div style="font-size:13px;font-weight:600;color:${tc};">${name}</div><div style="font-size:11px;color:${tc};opacity:.8;">${period} · ${type}</div></div><button class="btn btn-xs btn-ghost" style="margin-left:auto;" onclick="removeEvent(this)">✕</button>`;
   document.getElementById('event-list').appendChild(div);
   closeModal('modal-add-event');
-  showToast('"'+name+'" adicionado!','success');
+  showToast('"' + name + '" adicionado!', 'success');
 }
-function removeEvent(btn){btn.closest('div[style*="display:flex"]').remove();showToast('Evento removido','');}
+function removeEvent(btn) {
+  btn.closest('div[style*="display:flex"]').remove();
+  showToast('Evento removido', '');
+}
 
 // ── ESTOQUE FILTER ──
-function filterEstoque(q){
-  document.querySelectorAll('#estoque-table tbody tr').forEach(tr=>{
-    tr.style.display=tr.textContent.toLowerCase().includes(q.toLowerCase())?'':'none';
+function filterEstoque(q) {
+  document.querySelectorAll('#estoque-table tbody tr').forEach(tr => {
+    tr.style.display = tr.textContent.toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
   });
 }
-function filterByStatus(val){
-  document.querySelectorAll('#estoque-table tbody tr').forEach(tr=>{
-    tr.style.display=(!val||tr.dataset.status===val)?'':'none';
+function filterByStatus(val) {
+  document.querySelectorAll('#estoque-table tbody tr').forEach(tr => {
+    tr.style.display = (!val || tr.dataset.status === val) ? '' : 'none';
   });
 }
 
 // ── IMPORT ──
-function triggerImport(t){document.getElementById('file-'+t).click();}
-function dragOver(e,el){e.preventDefault();el.classList.add('drag');}
-function dragLeave(el){el.classList.remove('drag');}
-function dropFile(e,type,el){e.preventDefault();el.classList.remove('drag');const f=e.dataTransfer.files[0];if(f)processImport(f,type);}
-function handleFile(e,type){if(e.target.files[0])processImport(e.target.files[0],type);}
-function processImport(file,type){
-  const label=type==='cardapio'?'Cardápio':'Estoque';
-  showToast('Importando '+label+'...','');
-  setTimeout(()=>{
-    const tbody=document.getElementById('import-history');
-    const tr=document.createElement('tr');
-    const d=new Date();
-    tr.innerHTML=`<td>${d.toLocaleDateString('pt-BR')} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}</td><td>${label}</td><td>${file.name}</td><td><span class="badge b-green">✅ OK</span></td>`;
-    tbody.insertBefore(tr,tbody.firstChild);
-    showToast(label+' importado!','success');
-  },1200);
+function triggerImport(t) { document.getElementById('file-' + t).click(); }
+function dragOver(e, el) { e.preventDefault(); el.classList.add('drag'); }
+function dragLeave(el) { el.classList.remove('drag'); }
+function dropFile(e, type, el) { e.preventDefault(); el.classList.remove('drag'); const f = e.dataTransfer.files[0]; if (f) processImport(f, type); }
+function handleFile(e, type) { if (e.target.files[0]) processImport(e.target.files[0], type); }
+function processImport(file, type) {
+  const label = type === 'cardapio' ? 'Cardápio' : 'Estoque';
+  showToast('Importando ' + label + '...', '');
+  setTimeout(() => {
+    const tbody = document.getElementById('import-history');
+    const tr = document.createElement('tr');
+    const d = new Date();
+    tr.innerHTML = `<td>${d.toLocaleDateString('pt-BR')} ${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}</td><td>${label}</td><td>${file.name}</td><td><span class="badge b-green">✅ OK</span></td>`;
+    tbody.insertBefore(tr, tbody.firstChild);
+    showToast(label + ' importado!', 'success');
+  }, 1200);
 }
 
 // ── CALENDAR ──
-function buildCalendar(){
-  const grid=document.getElementById('cal-grid');
-  if(!grid)return;
-  const firstDay=0; // Junho 2025 começa domingo
-  const days=30;
-  const holidays=[19];
-  grid.innerHTML='';
-  for(let i=0;i<firstDay;i++){grid.appendChild(document.createElement('div'));}
-  for(let d=1;d<=days;d++){
-    const cell=document.createElement('div');
+function buildCalendar() {
+  const grid = document.getElementById('cal-grid');
+  if (!grid) return;
+  const firstDay = 0; // Junho 2025 começa domingo
+  const days = 30;
+  const holidays = [19];
+  grid.innerHTML = '';
+  for (let i = 0; i < firstDay; i++) { grid.appendChild(document.createElement('div')); }
+  for (let d = 1; d <= days; d++) {
+    const cell = document.createElement('div');
     cell.classList.add('cal-day');
-    const dow=(firstDay+d-1)%7;
-    const isWE=dow===0||dow===6;
-    const isH=holidays.includes(d);
-    if(isWE)cell.classList.add('weekend');
-    else if(isH)cell.classList.add('holiday');
+    const dow = (firstDay + d - 1) % 7;
+    const isWE = dow === 0 || dow === 6;
+    const isH = holidays.includes(d);
+    if (isWE) cell.classList.add('weekend');
+    else if (isH) cell.classList.add('holiday');
     else cell.classList.add('working');
-    cell.innerHTML=`<span>${d}</span>`;
-    cell.title=isH?'Feriado — Sem serviço':isWE?'Fim de semana':`${d}/06/2025`;
+    cell.innerHTML = `<span>${d}</span>`;
+    cell.title = isH ? 'Feriado — Sem serviço' : isWE ? 'Fim de semana' : `${d}/06/2025`;
     grid.appendChild(cell);
   }
 }
 buildCalendar();
+
+// ── SWIPE TO CLOSE SIDEBAR ──
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (sidebar.classList.contains('open') && dx < -60) closeSidebar();
+  if (!sidebar.classList.contains('open') && touchStartX < 24 && dx > 60) openSidebar();
+}, { passive: true });
 </script>
 </body>
 </html>
